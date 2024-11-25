@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Video Background{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Remove scrollbars */
+        }
+
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the entire background */
+            z-index: -1; /* Places the video behind all other elements */
+        }
+
+        .content {
+            position: relative;
+            z-index: 1; /* Places content above the video */
+        }
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+
+<!-- Background Audio -->
+<div style="display: flex; align-items: center; gap: 10px;">
+    <!-- Play/Pause Button -->
+    <button id="playPause" style="padding: 1px 1px; font-size: 14px; border: 1px solid #1f6a96; border-radius: 5px; background-color: ##1f6a96; cursor: pointer;">
+        ♫
+    </button>
+
+    <!-- Volume Slider -->
+    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1"
+           style="width: 100px; height: 1px; cursor: pointer;">
+</div>
+
+<!-- Hidden Audio Player -->
+<audio id="audioPlayer">
+    <source src="{% static 'shared/soundtrack.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+
+
+<!-- Background Video -->
+<video autoplay loop muted playsinline>
+    <source src="{% static 'shared/background.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+
+
+<!-- Content Placeholder -->
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+
+<script>
+const audioPlayer = document.getElementById("audioPlayer");
+const playPauseButton = document.getElementById("playPause");
+const volumeControl = document.getElementById("volumeControl");
+
+playPauseButton.addEventListener("click", () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseButton.textContent = "♫";
+    } else {
+        audioPlayer.pause();
+        playPauseButton.textContent = "♫";
+    }
+});
+
+volumeControl.addEventListener("input", (event) => {
+    audioPlayer.volume = event.target.value;
+});
+</script>
+</body>
+</html>
