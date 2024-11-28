@@ -1,15 +1,17 @@
 from pathlib import Path
 import os
-from .secrets import load_secrets
+from .secrets import EnvLoader
+from django.core.cache import cache
 
-load_secrets()
+cache.clear()
+
+EnvLoader.load()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'shared_static'),
 ]
-
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
