@@ -49,12 +49,6 @@ class HashiCorp:
         if not os.environ.get('hcp_loaded'):
             # retrieving API token
 
-            # trying if .env was loaded by load_secrets function (someone messed up)
-            if os.environ.get('HCP_CLIENT_ID') is None:
-                # loading .env manually
-                from .dotenv_loader import load_env_vars
-                load_env_vars()
-
             client_id = os.environ.get('HCP_CLIENT_ID')
             client_secret = os.environ.get('HCP_CLIENT_SECRET')
             api_token_url = os.environ.get('HCP_API_TOKEN_URL')
@@ -71,3 +65,4 @@ class HashiCorp:
 
             # setting env_loaded to any value to indicate it has already been loaded
             os.environ['hcp_loaded'] = '1'
+            print(os.environ.get('hcp_loaded'))

@@ -1,18 +1,23 @@
 from dotenv import load_dotenv
 from pathlib import Path
 import os
+from utils import FileEncryptor
 
-ENV_FILE = '.env'
 
-
-def load_env_vars():
-    """Loads the environment vars from .env"""
-
+def decrypt_and_load_env(env_file='.env') -> None:
+    """Loads the environment vars from .env and .env.enc"""
     base_dir = Path(__file__).resolve().parent.parent.parent  # nevertheless, keep in this stack to not mess up
 
-    dotenv_path = os.path.join(base_dir, ENV_FILE)
+    encryptor = FileEncryptor(files_to_encode=(env_file,))
 
-    if not os.path.exists(dotenv_path):
-        raise FileNotFoundError(ENV_FILE, "wasn't found in ", dotenv_path)
+    if os.path.exists(os.path.join(base_dir, env_file + '.enc')):
+        encryptor.decrypt()
+        load_dotenv()
+        encryptor.encrypt()
 
-    load_dotenv(dotenv_path=dotenv_path)
+    elif os.path.exists(os.path.join(base_dir, env_file)):
+        # trying to find .env (maybe someone messed up)
+        load_dotenv()
+        encryptor.encrypt()
+    else:
+        raise FileNotFoundError(".env file (nor encrypted or decrypted) weren't found in ", base_dir)
