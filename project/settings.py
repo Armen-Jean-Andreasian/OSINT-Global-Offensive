@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+from .secrets import load_secrets
+
+load_secrets()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,12 +11,9 @@ STATICFILES_DIRS = [
 ]
 
 
-SECRET_KEY = "django-insecure-+bgp1le)sj94e2v)b^4ni=y9fc$f-v&efjj$0#vwfcmg#^_)i@"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
