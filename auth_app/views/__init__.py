@@ -1,4 +1,4 @@
-from .register import RegisterController
-from .log_in import LoginController
+from .register import RegisterView
+from .log_in import LoginView
 from .log_out import LogoutController
 

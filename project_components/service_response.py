@@ -1,32 +1,18 @@
 class ServiceResponse:
     """Special class designed for inter-app communication. Supports if true check."""
 
-    def __init__(self, status: bool, data=None, error=None, reason=None):
+    def __init__(self, status: bool, data=None, error=None, reason=None, message=None):
         self.status = status
         self.data = data
         self.error = error
         self.reason = reason
+        self.message = message
 
     def __repr__(self):
         return f"<ServiceResponse(success={self.status}, data={self.data}, error={self.error})>"
 
     def to_dict(self, non_null=False):
-        result = {
-            "success": self.status,
-            "data": self.data,
-            "error": self.error,
-            "reason": self.reason
-        }
-
-        if non_null:
-            if not self.data:
-                result.pop('data')
-            if not self.error:
-                result.pop('error')
-            if not self.reason:
-                result.pop('reason')
-
-        return result
+        return {k: v for k, v in self.__dict__.items() if v is not None} if non_null else self.__dict__
 
     def __bool__(self):
         return self.status
