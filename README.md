@@ -20,3 +20,8 @@ So the order is:
 1. Decrypt the `.env` file
 2. Retrieve Hashicorp data outta it
 3. Request Hashicorp and obtain Django secrets.
+
+# Principle
+
+- The project strongly maintains `LOB` principle combined with `YAGNI`. 
+- It may hurt your solid feelings of an over-engineered amateur developer. 

@@ -1,5 +1,5 @@
 from user_app.models import UserModel
-from shared_scripts import ServiceResponse
+from project_components import ServiceResponse
 
 
 class UserController:
