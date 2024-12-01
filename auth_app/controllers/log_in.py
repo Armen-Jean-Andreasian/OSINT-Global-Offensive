@@ -2,17 +2,15 @@ from django.shortcuts import render, redirect, reverse
 from django.views import View
 from user_app.models import UserModel
 from project.config import TemplatePaths, Reverses
-from sessions import verify_authorized_session, set_session_key
+from sessions import verify_session
 
 
 class LoginController(View):
     def get(self, request):
         """Redirects to dashboard page for authenticated users, renders the page for non-authenticated ones."""
-        set_session_key(request)
 
-        if 'user_id' in request.session:
-            if verify_authorized_session(request):
-                return redirect(Reverses.dashboard)
+        if verify_session(request):
+            return redirect(Reverses.dashboard)
 
         return render(request, TemplatePaths.login_template)
 
@@ -28,6 +26,9 @@ class LoginController(View):
         if not user.check_password(password):
             return render(request, TemplatePaths.login_template, {"error_message": "Invalid login or password"})
 
-        request.session['user_id'] = user.id
+        # Regenerate session key to prevent fixation attacks
+        request.session.cycle_key()
+        request.session.save()
 
+        request.session['user_id'] = user.id
         return redirect(reverse(Reverses.dashboard))

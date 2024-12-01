@@ -1,5 +1,5 @@
 import re
-from shared_scripts import ServiceResponse
+from project_components import ServiceResponse
 
 
 def check_password_strength(password: str) -> ServiceResponse:
