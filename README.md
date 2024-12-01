@@ -24,4 +24,22 @@ So the order is:
 # Principle
 
 - The project strongly maintains `LOB` principle combined with `YAGNI`. 
+- Also, this project violates the PEP on line length with beautiful one-line solutions 
 - It may hurt your solid feelings of an over-engineered amateur developer. 
+
+
+# Segregation
+
+As Django is MTV not MVC, and I like quality, MTVC will be used:
+
+- View: **(Presentation Layer)** 
+  - Handles only GET method
+  - delegates to Controller: POST, PUT, PATCH, DELETE methods
+  - Returns HTML and receives data from front to send to Controller
+
+
+- Controller: **(Business Logic Layer)**
+- Handles only POST, PUT, PATCH, DELETE methods
+- Does the black ops, returns the result to View in ServiceResponse
+
+Full flow. view receives data and transfers to controller, it does the job, returns ServiceResponse to View which according to ServiceResponse's status decided what to render/redirect.

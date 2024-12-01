@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, reverse
 from django.views import View
-from project.config import Reverses
+from project.paths import Reverses
 
 
 class LogoutController(View):

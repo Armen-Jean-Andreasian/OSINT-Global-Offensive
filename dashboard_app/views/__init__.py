@@ -1,1 +1,1 @@
-from .dashboard import DashboardController
+from .dashboard import DashboardView

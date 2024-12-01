@@ -60,3 +60,47 @@
 #
 #
 # #
+
+from .models import ObtainedDataModel
+from logger_app.models import LoggerModel
+from django.http import JsonResponse, HttpResponseRedirect
+from django.utils.timezone import now
+from django.views.decorators.http import require_http_methods
+
+
+def extract_user_data(request, logger_entry):
+    """
+    Extracts user data from the request and logs it in the ObtainedDataModel.
+    """
+    client_ip = request.headers.get('X-Forwarded-For', request.META.get('REMOTE_ADDR'))
+    if ',' in client_ip:
+        client_ip = client_ip.split(',')[0]  # Use the first IP in the list
+
+    ObtainedDataModel.objects.create(
+        logger=logger_entry,
+        date_time=now(),
+        ip=client_ip,
+        browser=request.headers.get('Sec-Ch-Ua', ''),
+        operating_system=request.headers.get('Sec-Ch-Ua-Platform', ''),
+        user_agent=request.headers.get('User-Agent', ''),
+        host_name=request.get_host(),
+        isp=request.headers.get('X-Forwarded-Host', ''),
+    )
+
+
+@require_http_methods(["GET"])
+def redirect_to_destination(request, dynamic_id):
+    """
+    Redirects to the destination URL if the logger entry exists.
+    Logs metadata in ObtainedDataModel.
+    """
+    try:
+        logger_entry = LoggerModel.objects.get(id=dynamic_id)
+    except LoggerModel.DoesNotExist:
+        return JsonResponse({"error": "Destination not found"}, status=404)
+
+    # Log request metadata
+    extract_user_data(request, logger_entry)
+
+    # Redirect to destination
+    return HttpResponseRedirect(logger_entry.destination)

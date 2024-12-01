@@ -14,7 +14,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('auth_app.urls')),
     path('profile/', include('dashboard_app.urls')),
-    re_path(r'^.*$', redirect_to_login),  # match all other (undefined) paths and redirecting to login page
+    path('obtain_data/', include('obtained_data_app.urls')),
+    re_path(r'^(?!obtain_data).*$', redirect_to_login),
+    # match all other (undefined) paths and redirecting to login page, except for those starting with obtain_data
 ]
 
 if settings.DEBUG:

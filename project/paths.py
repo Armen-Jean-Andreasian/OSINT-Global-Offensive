@@ -9,6 +9,3 @@ class Reverses:
     register = 'auth_app:register'
     dashboard = 'dashboard_app:dashboard'
 
-
-class FallbackPaths:
-    home = ['/', '', '/home']
