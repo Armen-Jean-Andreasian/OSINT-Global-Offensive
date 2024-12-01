@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  redis:
+    build:
+      context: .
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data # Mount a volume for persistent storage
+    environment:
+      - REDIS_REPLICATION_MODE=master # Master by default
+    restart: unless-stopped
+
+volumes:
+  redis_data:
