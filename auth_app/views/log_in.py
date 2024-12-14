@@ -9,7 +9,6 @@ class LoginView(View):
     def get(self, request):
         """Redirects to dashboard page for authenticated users, renders the page for non-authenticated ones."""
 
-
         if verify_session(request):
             return redirect(Reverses.dashboard)
 

@@ -44,7 +44,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
-    "project.middlewares.EstablishSessionMiddleware",
+    # "project.middlewares.EstablishSessionMiddleware",
     "project.middlewares.NoCsrfForLocalhostMiddleware",
     # "project.middlewares.NonExistingPathsRedirectorMiddleware",
 ]
