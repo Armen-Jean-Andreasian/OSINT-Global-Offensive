@@ -30,16 +30,22 @@ So the order is:
 
 # Segregation
 
-As Django is MTV not MVC, and I like quality, MTVC will be used:
+## These are made to not make the project a mess of functions separated by files.
 
-- View: **(Presentation Layer)** 
-  - Handles only GET method
-  - delegates to Controller: POST, PUT, PATCH, DELETE methods
-  - Returns HTML and receives data from front to send to Controller
+View: **(Presentation Layer)**
+- Views are represented as View based classes, so they contain REST methods: `get`, `post`, `put`, `patch`, `delete`
+- Each view has only one path it handles.
+- Ideally views shouldn't contain business logic and they should return `Controller.call` or files (HTML). However, the scenarios can be complex, and to not summon new layers such as `Transaction`, `Contract`, or `BusinessLogic`, depending on the goal.
+- One path may include multiple subpaths, each of them should have their own View based class. `/path` has `PathView` and `/path/data/<id>` has its own `DataView`.
+- Views obtain data and pass to templates.
+- To handle `get` maybe `dispatch` will be used.
 
-
-- Controller: **(Business Logic Layer)**
-- Handles only POST, PUT, PATCH, DELETE methods
-- Does the black ops, returns the result to View in ServiceResponse
+  
+Controller: **(Business Logic Layer)**
+- Controllers are custom classes, which contain limited CRUD methods: `index`, `show`, `update`, `destroy`. 
+- Controllers provide interface to work solely with their own models.
+- Controllers answer using `ServiceResponse` custom data structure.
 
 Full flow. view receives data and transfers to controller, it does the job, returns ServiceResponse to View which according to ServiceResponse's status decided what to render/redirect.
+
+
