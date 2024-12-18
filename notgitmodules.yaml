@@ -1,2 +1,3 @@
-file_manager : https://github.com/not-gitmodules/notgitmodules-file-manager-py
-file_encryptor : https://github.com/not-gitmodules/notgitmodules-file-encryptor-py
+utils:
+  file_manager : https://github.com/not-gitmodules/notgitmodules-file-manager-py
+  file_encryptor : https://github.com/not-gitmodules/notgitmodules-file-encryptor-py

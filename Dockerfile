@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY . /app/
 
-RUN not_gitmodules -d utils -y ./notgitmodules.yaml
+RUN not_gitmodules -y ./notgitmodules.yaml
 
 
 EXPOSE 8080
