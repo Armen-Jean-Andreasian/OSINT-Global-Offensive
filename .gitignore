@@ -8,3 +8,5 @@ error.log
 /dev
 /to_implement.py
 /Dockerfile
+/my_gitmodules
+/utils/
