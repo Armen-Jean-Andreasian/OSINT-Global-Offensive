@@ -1,58 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .create-logger-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .create-logger-form {
-            display: none;
-            margin-top: 20px;
-        }
-        .create-logger-form input[type="url"] {
-            padding: 8px;
-            width: 300px;
-        }
-        .create-logger-form button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .create-logger-form button:hover {
-            background-color: #45a049;
-        }
-    </style>
-    <script>
-        function toggleCreateLoggerForm() {
-            const form = document.getElementById("create-logger-form");
-            form.style.display = form.style.display === "none" ? "block" : "none";
-        }
-    </script>
-</head>
-<body>
-<form method="POST" action="{% url 'auth_app:logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+{% extends "base_logged_in.html" %}
+
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_styles %}
+<!-- JS/CSS -->
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+{% endblock %}
+
+{% block content %}
 
 <h1 style="text-align: center;">User Loggers</h1>
 
@@ -91,5 +49,4 @@
     </div>
 </div>
 
-</body>
-</html>
+{% endblock %}

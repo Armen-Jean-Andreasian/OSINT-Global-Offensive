@@ -1,0 +1,58 @@
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px; /* Remove vertical padding */
+    background-color: #282122;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    height: 50px; /* Fixed height for a consistent look */
+    line-height: 50px; /* Ensure text vertically aligns in the navbar */
+    box-sizing: border-box; /* Include padding and borders in height calculation */
+}
+
+/* Buttons and Links */
+.navbar a,
+.navbar button {
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: normal; /* Ensure buttons do not stretch the navbar height */
+}
+
+.navbar a:hover,
+.navbar button:hover {
+    color: #c0c0c0; /* Light gray hover effect */
+}
+
+/* Placeholder for Future Additions */
+.navbar .right-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Add a bit of spacing between elements */
+.navbar .right-content {
+    margin-left: 10px;
+}
+
+/* Logout Button */
+.navbar form button {
+    background-color: #4CAF50;
+    padding: 4px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    line-height: normal; /* Prevent button from expanding the navbar */
+}
+
+.navbar form button:hover {
+    background-color: #45a049;
+}

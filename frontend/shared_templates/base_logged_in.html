@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Audio Player{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            position: relative;
+            padding: 20px;
+        }
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+
+<!-- Navbar -->
+{% include 'partials/navbar.html' %}
+
+<!-- Content Placeholder -->
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

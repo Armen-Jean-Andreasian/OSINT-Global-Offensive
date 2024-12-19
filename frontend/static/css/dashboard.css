@@ -1,0 +1,35 @@
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px auto;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+.create-logger-container {
+    text-align: center;
+    margin-top: 20px;
+}
+.create-logger-form {
+    display: none;
+    margin-top: 20px;
+}
+.create-logger-form input[type="url"] {
+    padding: 8px;
+    width: 300px;
+}
+.create-logger-form button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.create-logger-form button:hover {
+    background-color: #45a049;
+}
