@@ -6,6 +6,9 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
     }
 
     h1 {
@@ -28,29 +31,24 @@
         margin-bottom: 5px;
     }
 
-    #login-form input {
+    #login-form input, #login-form button {
         width: 100%;
         padding: 10px;
         margin-bottom: 15px;
         border-radius: 5px;
         border: 1px solid #ccc;
+        box-sizing: border-box; /* Ensures padding is included in the width calculation */
     }
 
     #login-form button {
-        width: 100%;
-        padding: 10px;
         background-color: #4CAF50;
         color: white;
         border: none;
-        border-radius: 5px;
+        cursor: pointer;
     }
 
-    #error-message {
-        color: red;
-        padding: 10px;
-        border: 1px solid red;
-        display: none;
-        margin-bottom: 10px;
+    #login-form button:hover {
+        background-color: #45a049;
     }
 
     p {
@@ -60,16 +58,70 @@
     a {
         color: #4CAF50;
     }
+
+    /* Styles for alert messages */
+    .alert {
+        width: 300px;
+        margin: 10px auto;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    a {
+        color: #4CAF50;
+    }
+
+    /* Styles for alert messages */
+    .alert {
+        width: 300px;
+        margin: 10px auto;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>Login</h1>
 
-<!-- Display Error message if exists -->
-{% if error_message %}
-<div id="error-message" style="display:block;">
-    <p>{{ error_message }}</p>
+<!-- Display success or error messages -->
+{% if messages %}
+<div id="message-container">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
 </div>
 {% endif %}
 
@@ -89,5 +141,5 @@
     <button type="submit">Login</button>
 </form>
 
-<p style="color: white;">Don't have an account? <a href="{% url 'auth_app:register' %}" style="color: green;">Register</a></p>
+<p>Don't have an account? <a href="{% url 'auth_app:register' %}" style="color: green;">Register</a></p>
 {% endblock %}

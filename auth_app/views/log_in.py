@@ -3,7 +3,7 @@ from django.views import View
 from project.paths import TemplatePaths, Reverses
 from sessions import verify_session
 from auth_app.controllers import LoginController
-
+from django.contrib import messages
 
 class LoginView(View):
     def get(self, request):
@@ -21,7 +21,8 @@ class LoginView(View):
         result = LoginController.create(username, password)
 
         if not result:
-            return render(request, TemplatePaths.login_template, {"error_message": result.error})
+            messages.error(request, result.error)
+            return render(request, TemplatePaths.login_template)
 
         # Regenerate session key to prevent fixation attacks
         request.session.cycle_key()

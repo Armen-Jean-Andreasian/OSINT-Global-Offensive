@@ -6,6 +6,10 @@
 
 <!-- Embedded CSS -->
 <style>
+    :root {
+        --reg-box-width: 300px; /* Define the width for the registration box */
+    }
+
     body {
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
@@ -20,12 +24,13 @@
     }
 
     #register-form {
-        width: 300px;
+        width: var(--reg-box-width); /* Use the custom property for the form */
         margin: 0 auto;
         padding: 20px;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box; /* Ensure box-sizing for form */
     }
 
     #register-form label {
@@ -33,21 +38,25 @@
         margin-bottom: 5px;
     }
 
-    #register-form input {
+    #register-form input,
+    #register-form button {
         width: 100%;
         padding: 10px;
         margin-bottom: 15px;
         border-radius: 5px;
         border: 1px solid #ccc;
+        box-sizing: border-box; /* Ensures padding and border are included in the width */
     }
 
     #register-form button {
-        width: 100%;
-        padding: 10px;
         background-color: #4CAF50;
         color: white;
         border: none;
-        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #register-form button:hover {
+        background-color: #45a049;
     }
 
     #error-message {
@@ -65,11 +74,46 @@
     a {
         color: #4CAF50;
     }
+
+    /* Styles for alert messages */
+    .alert {
+        width: var(--reg-box-width); /* Use the same custom property for alerts */
+        margin: 10px auto;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        box-sizing: border-box; /* Ensures proper padding and width */
+        border: 1px solid transparent; /* Ensure border matches the background of success/error */
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: rgba(212, 237, 218, 0.5); /* Slight transparency */
+        border-color: rgba(195, 230, 203, 0.8);
+    }
+
+    .alert-error {
+        color: #721c24;
+        background-color: rgba(248, 215, 218, 0.5); /* Slight transparency */
+        border-color: rgba(245, 198, 203, 0.8);
+    }
+
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>Create an Account</h1>
+
+<!-- Display success or error messages -->
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 
 <!-- Display form errors, if any -->
 {% if error_message %}
