@@ -9,10 +9,6 @@ EnvLoader.load()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'shared_static'),
-]
-
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
@@ -49,11 +45,22 @@ MIDDLEWARE = [
     # "project.middlewares.NonExistingPathsRedirectorMiddleware",
 ]
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend', 'static'),
+]
+
+STATIC_URL = '/static/'
+
+# LONG STORY SHORT. put your css, js files in shared_templates folder then
+# # import using
+# {% load static %}
+# <script src="{% static 'welcome.js' %}" defer></script>
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / "shared_static",
+            BASE_DIR / 'frontend' / "shared_templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -115,5 +122,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-STATIC_URL = '/static/'

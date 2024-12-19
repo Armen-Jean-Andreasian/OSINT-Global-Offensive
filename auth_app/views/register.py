@@ -3,6 +3,7 @@ from django.views import View
 from django.contrib.auth.forms import UserCreationForm
 from project.paths import TemplatePaths, Reverses
 from auth_app.controllers import RegisterController
+from django.contrib import messages
 
 
 class RegisterView(View):
@@ -24,9 +25,15 @@ class RegisterView(View):
                 password2=form.cleaned_data['password2']
             )
 
-            if not result:
+            if not result:  # if we caught errors on model level
                 form.add_error(field=result.data, error=result.error)
+                messages.error(request, "Registration failed. Please fix the errors below.")
             else:
-                return redirect(reverse(Reverses.login))
+                messages.success(request, "Registration successful! Please log in.")
+                return render(request, TemplatePaths.register, {'form': form})
         else:
+            # processing and displaying errors from form.is_valid
+            for field, field_errors in form.errors.get_json_data().items():
+                messages.error(request, '\n'.join([error_dict['message'] for error_dict in field_errors]))
+
             return render(request, TemplatePaths.register, {'form': form})

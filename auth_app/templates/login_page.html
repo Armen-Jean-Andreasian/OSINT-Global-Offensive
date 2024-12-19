@@ -1,75 +1,26 @@
-{% extends "shared/base.html" %}
+{% extends "base_logged_out.html" %}
+
+{% load static %}
 
 {% block title %}Login{% endblock %}
 
 {% block extra_styles %}
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    h1 {
-        text-align: center;
-        padding: 20px;
-        color: #333;
-    }
-
-    #login-form {
-        width: 300px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #login-form label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    #login-form input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-
-    #login-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-    }
-
-    #error-message {
-        color: red;
-        padding: 10px;
-        border: 1px solid red;
-        display: none;
-        margin-bottom: 10px;
-    }
-
-    p {
-        text-align: center;
-    }
-
-    a {
-        color: #4CAF50;
-    }
-</style>
+<!-- JS/CSS -->
+<link rel="stylesheet" href="{% static 'css/login_page.css' %}">
 {% endblock %}
+
 
 {% block content %}
 <h1>Login</h1>
 
-<!-- Display Error message if exists -->
-{% if error_message %}
-<div id="error-message" style="display:block;">
-    <p>{{ error_message }}</p>
+<!-- Display success or error messages -->
+{% if messages %}
+<div id="message-container">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
 </div>
 {% endif %}
 
@@ -89,5 +40,6 @@
     <button type="submit">Login</button>
 </form>
 
-<p style="color: white;">Don't have an account? <a href="{% url 'auth_app:register' %}" style="color: green;">Register</a></p>
+<p>Don't have an account? <a href="{% url 'auth_app:register' %}" style="color: green;">Register</a></p>
 {% endblock %}
+

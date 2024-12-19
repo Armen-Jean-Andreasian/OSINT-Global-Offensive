@@ -1,86 +1,26 @@
-{% extends "shared/base.html" %}
+{% extends "base_logged_out.html" %}
+
+{% load static %}
 
 {% block title %}Register{% endblock %}
 
 {% block extra_styles %}
-
-<!-- Embedded CSS -->
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1 {
-        text-align: center;
-        padding: 20px;
-        color: #333;
-    }
-
-    #register-form {
-        width: 300px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #register-form label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    #register-form input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-
-    #register-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-    }
-
-    #error-message {
-        color: red;
-        padding: 10px;
-        border: 1px solid red;
-        display: none;
-        margin-bottom: 10px;
-    }
-
-    p {
-        text-align: center;
-    }
-
-    a {
-        color: #4CAF50;
-    }
-</style>
+<!-- JS/CSS -->
+<link rel="stylesheet" href="{% static 'css/register_page.css' %}">
 {% endblock %}
+
 
 {% block content %}
 <h1>Create an Account</h1>
 
-<!-- Display form errors, if any -->
-{% if error_message %}
-<div id="error-message" style="{% if form.errors %}display:block{% else %}display:none{% endif %};">
-    <ul>
-        {% for field in form %}
-        {% for error in field.errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-        {% endfor %}
-    </ul>
+<!-- Display success or error messages -->
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
 </div>
 {% endif %}
 

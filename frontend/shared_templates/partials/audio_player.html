@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/audio_player.css' %}">
+
+<!-- Background Audio Player Container -->
+<div class="audio-player-container">
+  <!-- Play/Pause Button -->
+  <button id="playPause">
+    ♫
+  </button>
+
+  <!-- Volume Slider -->
+  <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0">
+
+</div>
+
+<!-- Hidden Audio Player -->
+<audio id="audioPlayer">
+  <source src="{% static 'files/soundtrack.mp3' %}" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script src="{% static 'js/music_player.js' %}" defer></script>
