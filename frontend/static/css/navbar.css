@@ -1,30 +1,32 @@
 /* Navbar container */
 .navbar {
-    display: flex;
+    position: relative; /* Correctly set the position */
+    z-index: 2;
+    display: flex; /* Use flex for layout control */
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px; /* Remove vertical padding */
+    padding: 0 16px; /* Horizontal padding */
     background-color: #282122;
-    color: white;
+    color: #ffffff; /* Ensure accessible contrast */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     font-family: Arial, sans-serif;
-    font-size: 14px;
-    height: 50px; /* Fixed height for a consistent look */
-    line-height: 50px; /* Ensure text vertically aligns in the navbar */
-    box-sizing: border-box; /* Include padding and borders in height calculation */
+    font-size: 0.875rem; /* Scalable font size */
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
 }
 
 /* Buttons and Links */
 .navbar a,
 .navbar button {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 0.875rem;
     cursor: pointer;
     padding: 4px 8px;
-    line-height: normal; /* Ensure buttons do not stretch the navbar height */
+    line-height: normal;
 }
 
 .navbar a:hover,
@@ -32,15 +34,11 @@
     color: #c0c0c0; /* Light gray hover effect */
 }
 
-/* Placeholder for Future Additions */
+/* Right-aligned content */
 .navbar .right-content {
     display: flex;
     align-items: center;
     gap: 15px;
-}
-
-/* Add a bit of spacing between elements */
-.navbar .right-content {
     margin-left: 10px;
 }
 
@@ -50,7 +48,11 @@
     padding: 4px 12px;
     border-radius: 4px;
     transition: background-color 0.3s;
-    line-height: normal; /* Prevent button from expanding the navbar */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    line-height: normal;
 }
 
 .navbar form button:hover {
