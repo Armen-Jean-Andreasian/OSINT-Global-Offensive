@@ -3,7 +3,13 @@
 {% block title %}Login{% endblock %}
 
 {% block extra_styles %}
+
+<!-- Embedded CSS -->
 <style>
+    :root {
+        --reg-box-width: 300px;
+    }
+
     body {
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
@@ -18,12 +24,13 @@
     }
 
     #login-form {
-        width: 300px;
+        width: var(--reg-box-width);
         margin: 0 auto;
         padding: 20px;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
     }
 
     #login-form label {
@@ -31,13 +38,14 @@
         margin-bottom: 5px;
     }
 
-    #login-form input, #login-form button {
+    #login-form input,
+    #login-form button {
         width: 100%;
         padding: 10px;
         margin-bottom: 15px;
         border-radius: 5px;
         border: 1px solid #ccc;
-        box-sizing: border-box; /* Ensures padding is included in the width calculation */
+        box-sizing: border-box;
     }
 
     #login-form button {
@@ -61,53 +69,27 @@
 
     /* Styles for alert messages */
     .alert {
-        width: 300px;
+        width: var(--reg-box-width);
         margin: 10px auto;
         padding: 10px;
         border-radius: 5px;
         text-align: center;
+        box-sizing: border-box;
+        border: 1px solid transparent;
     }
 
     .alert-success {
         color: #155724;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
+        background-color: rgba(212, 237, 218, 0.5);
+        border-color: rgba(195, 230, 203, 0.8);
     }
 
     .alert-error {
         color: #721c24;
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
+        background-color: rgba(248, 215, 218, 0.5);
+        border-color: rgba(245, 198, 203, 0.8);
     }
 
-    p {
-        text-align: center;
-    }
-
-    a {
-        color: #4CAF50;
-    }
-
-    /* Styles for alert messages */
-    .alert {
-        width: 300px;
-        margin: 10px auto;
-        padding: 10px;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .alert-success {
-        color: #155724;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-    }
-
-    .alert-error {
-        color: #721c24;
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
-    }
 </style>
 {% endblock %}
 

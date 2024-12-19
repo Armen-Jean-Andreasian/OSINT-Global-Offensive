@@ -5,6 +5,7 @@ from sessions import verify_session
 from auth_app.controllers import LoginController
 from django.contrib import messages
 
+
 class LoginView(View):
     def get(self, request):
         """Redirects to dashboard page for authenticated users, renders the page for non-authenticated ones."""
