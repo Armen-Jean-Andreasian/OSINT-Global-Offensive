@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<nav class="navbar">
+    <!-- Audio Player -->
+    <div class="audio-player">
+        {% include 'partials/audio_player.html' %}
+    </div>
+
+    <!-- Placeholder for Future Additions -->
+    <div class="right-content">
+        <!-- Display Logout Button Only if User is Logged In -->
+        {% if request.session.user_id %}
+        <form method="POST" action="{% url 'auth_app:logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% endif %}
+    </div>
+</nav>

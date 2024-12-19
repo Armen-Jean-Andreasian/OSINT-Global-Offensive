@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Audio Player{% endblock %}</title>
+    {% block extra_styles %}
+    {% endblock %}
+
+    <!-- Add the particles background CSS -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #383535; /* Background color (optional) */
+            z-index: 0; /* Ensure particles are behind the content */
+            pointer-events: auto; /* Allow interaction with particles */
+        }
+
+        .content {
+            position: relative; /* Ensure content is above the particles */
+            z-index: 1; /* Higher than particles */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Particles Background -->
+<div id="particles-js"></div>
+<script src="{% static 'particles/particles.js' %}" defer></script>
+<script src="{% static 'particles/app.js' %}" defer></script>
+
+<!-- Navbar -->
+{% include 'partials/navbar.html' %}
+
+<!-- Content Placeholder -->
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

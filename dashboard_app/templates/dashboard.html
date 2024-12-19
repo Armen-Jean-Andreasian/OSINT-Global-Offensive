@@ -1,63 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .create-logger-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .create-logger-form {
-            display: none;
-            margin-top: 20px;
-        }
-        .create-logger-form input[type="url"] {
-            padding: 8px;
-            width: 300px;
-        }
-        .create-logger-form button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .create-logger-form button:hover {
-            background-color: #45a049;
-        }
-    </style>
-    <script>
-        function toggleCreateLoggerForm() {
-            const form = document.getElementById("create-logger-form");
-            form.style.display = form.style.display === "none" ? "block" : "none";
-        }
-    </script>
-</head>
-<body>
-<form method="POST" action="{% url 'auth_app:logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+{% extends "base_logged_in.html" %}
 
-<h1 style="text-align: center;">User Loggers</h1>
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"> <!-- DataTables CSS -->
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #e3e1e1;">Your Loggers</h1>
 
 {% if loggers %}
-<table>
+<!-- Table with DataTable 'hover' class for hover effect -->
+<table id="loggerTable" class="display hover" style="width: 80%; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
     <thead>
     <tr>
         <th>ID</th>
@@ -76,20 +33,35 @@
     </tbody>
 </table>
 {% else %}
-<p style="text-align: center;">No loggers found for the user.</p>
+<p style="text-align: center; color: #777;">No loggers found for the user.</p>
 {% endif %}
 
+{% block extra_scripts %}
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script> <!-- DataTables JS -->
+<script>
+    $(document).ready(function() {
+        $('#loggerTable').DataTable();  // Initialize DataTable with hover effect
+    });
+</script>
+
+<script src="{% static 'js/dashboard.js' %}" defer></script>
+{% endblock %}
+
 <div class="create-logger-container">
-    <button type="button" onclick="toggleCreateLoggerForm()">Create Logger</button>
-    <div id="create-logger-form" class="create-logger-form">
+    <button type="button" onclick="
+        const form = document.getElementById('create-logger-form');
+        if (form) {
+            form.style.display = form.style.display === 'block' ? 'none' : 'block';
+        }
+    ">Create Logger</button>
+    <div id="create-logger-form" class="create-logger-form" style="display: none;">
         <form method="POST" action="{% url 'dashboard_app:dashboard' %}">
             {% csrf_token %}
-            <label for="destination">Destination (URL):</label>
+            <label for="destination" style="color: #fff;">Destination:</label> <!-- White text for label -->
             <input type="url" name="destination" id="destination" required placeholder="Enter a valid URL">
             <button type="submit">Create</button>
         </form>
     </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

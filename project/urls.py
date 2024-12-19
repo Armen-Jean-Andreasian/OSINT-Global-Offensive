@@ -19,5 +19,5 @@ urlpatterns = [
     # match all other (undefined) paths and redirecting to login page, except for those starting with obtain_data
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=os.path.join(settings.BASE_DIR, 'shared_static'))
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=os.path.join(settings.BASE_DIR, 'shared_templates'))

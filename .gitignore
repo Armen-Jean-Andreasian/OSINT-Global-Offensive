@@ -10,3 +10,5 @@ error.log
 /Dockerfile
 /my_gitmodules
 /utils/
+/temp.py
+/test.html
