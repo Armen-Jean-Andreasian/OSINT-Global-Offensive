@@ -2,7 +2,7 @@ import jwt
 import random
 import string
 from datetime import datetime, timedelta
-from project_components import ServiceResponse
+from components import ServiceResponse
 
 
 class JwtTokenFactory:

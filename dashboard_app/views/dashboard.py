@@ -4,6 +4,12 @@ from project.paths import TemplatePaths, Reverses
 from django.http import HttpRequest
 from sessions import verify_session
 from logger_app.controllers import LoggerController
+from obtained_data_app.models import ObtainedDataModel
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from logger_app.models import LoggerModel
+    from components import ServiceResponse
 
 
 class DashboardView(View):
@@ -11,13 +17,20 @@ class DashboardView(View):
         """ Displays the dashboard page to auth-ed users, otherwise redirects the non-authed ones to login. """
 
         if verify_session(request):
-            result = LoggerController.find_user_loggers(user_id=request.session['user_id'])
-            loggers: list = [] if not result else result.data
-            print(type(loggers[1]))
-            # logger : entry
-            # if entries_found := len(loggers)
+            result: "ServiceResponse" = LoggerController.find_user_loggers(user_id=request.session['user_id'])
+            loggers: list | list['LoggerModel'] = result.data if result else []
 
-            context = {"loggers": loggers}
+            # we return logger and the number of obtained data of it in a dict
+
+            response: dict['LoggerModel': int] = dict()
+
+            for logger in loggers:
+                # TODO: later this should check cache
+                obtained_data: "ServiceResponse" = ObtainedDataModel.index(logger_id=logger.id)
+                # TODO: later  obtained_data should be placed in cache with 5-15 minutes ttl
+                response[logger] = len(obtained_data.data) if obtained_data else 0
+
+            context = {"loggers": response}
             return render(request, TemplatePaths.dashboard, context)
 
         return redirect(Reverses.login)

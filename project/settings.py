@@ -1,11 +1,11 @@
 from pathlib import Path
 import os
-from .secrets import EnvLoader
+from components import EnvironmentLoader
 from django.core.cache import cache
 
 cache.clear()
 
-EnvLoader.load()
+EnvironmentLoader.load()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

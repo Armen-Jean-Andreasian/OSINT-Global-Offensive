@@ -1,6 +1,6 @@
 # from django.views import View
 # from django.http import HttpRequest
-# from project_components import JwtToken
+# from components import JwtToken
 #
 # class DataObtainerView(View):
 #     # TODO: @app.get('/<dynamic_id>') bind this to obtainer/<dynamic_id> url

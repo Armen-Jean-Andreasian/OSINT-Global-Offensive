@@ -20,14 +20,16 @@
         <th>ID</th>
         <th>Destination</th>
         <th>Fake URL</th>
+        <th>Entries Detected</th> <!-- New column for entries -->
     </tr>
     </thead>
     <tbody>
-    {% for logger in loggers %}
+    {% for logger, entries_count in loggers.items %}
     <tr>
         <td>{{ logger.id }}</td>
         <td>{{ logger.destination }}</td>
         <td>{{ logger.fake_url }}</td>
+        <td>{{ entries_count }}</td> <!-- Display the number of entries -->
     </tr>
     {% endfor %}
     </tbody>
@@ -45,7 +47,6 @@
     });
 </script>
 
-<script src="{% static 'js/dashboard.js' %}" defer></script>
 {% endblock %}
 
 <div class="create-logger-container">
