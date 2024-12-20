@@ -13,9 +13,11 @@ class LoggerController:
     def find_logger(logger_id) -> ServiceResponse:
         try:
             logger_entry = LoggerModel.objects.get(id=logger_id)
+            print("logger_entry", type(logger_entry))
         except LoggerModel.DoesNotExist:
             return ServiceResponse(status=False, error="Logger not found")
         else:
+            print("logger_entry", type(logger_entry))
             return ServiceResponse(status=True, data=logger_entry)
 
     @staticmethod
