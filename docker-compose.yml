@@ -1,17 +1,39 @@
 version: "3.9"
 
 services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true  # This is equivalent to -i (interactive)
+    tty: true         # This is equivalent to -t (allocate a pseudo-TTY)
+    # Remove the runserver command to allow manual execution of commands
+    command: bash -c "python manage.py migrate"
+    depends_on:
+      - redis
+    networks:
+      - app_network
+
   redis:
-    build:
-      context: .
+    image: redis:alpine
     container_name: redis-container
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data # Mount a volume for persistent storage
+      - redis_data:/data
     environment:
-      - REDIS_REPLICATION_MODE=master # Master by default
+      - REDIS_REPLICATION_MODE=master
     restart: unless-stopped
+    networks:
+      - app_network
 
 volumes:
   redis_data:
+
+networks:
+  app_network:
+    driver: bridge

@@ -3,7 +3,7 @@ import jwt
 from datetime import datetime, timedelta
 import random
 import string
-from project_components import JwtToken
+from components import JwtToken
 
 
 

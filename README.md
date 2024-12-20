@@ -1,3 +1,20 @@
+#### [20.12.2024] 
+New update of the project. 
+
+Since now all CRUD methods will be moved to Models.
+- create (all params needed) => create one based on params
+- index (may have params) => show all based on params 
+- show (has at least one param) => show one based on params
+- update (at least id, new_content) => update one based on params
+- destroy (at least id) => delete one based on params
+
+Additionally, some other methods:
+- clone (at least id) => clones the object into a new one with different id
+
+
+No more Controllers. Views will be responsible for handling the data and passing it to Models. Models will be responsible for CRUD operations. Views will be responsible for rendering the data.
+
+---
 # Logger Django App
 
 The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZkTCkDyJxTl87X1wKRheW/view?usp=sharing)
@@ -10,8 +27,8 @@ The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZ
 
 # Secrets, encryption, etc
 
-- All project-level secrets are kept in HashiCorp Vault
-- In `.env` are kept HashiCorp-related secrets
+- All project-level secrets are kept in HashiCorpLoader Vault
+- In `.env` are kept HashiCorpLoader-related secrets
 - The `.env` file is encrypted.
   - By default it's the `master-key` that you'll be asked to enter
   - Optionally you can encrypt using a random generated salt, which will be saved as a file called `salt`, which is also supported.

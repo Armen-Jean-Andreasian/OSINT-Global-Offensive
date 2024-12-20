@@ -1,5 +1,5 @@
 from user_app.models import UserModel
-from project_components import ServiceResponse
+from components import ServiceResponse
 
 
 class UserController:

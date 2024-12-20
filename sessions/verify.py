@@ -1,6 +1,6 @@
 from django.contrib.sessions.models import Session
 from django.utils import timezone
-from project_components import ServiceResponse
+from components import ServiceResponse
 
 
 def verify_session(request) -> ServiceResponse:

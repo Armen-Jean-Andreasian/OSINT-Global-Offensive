@@ -1,6 +1,6 @@
 from logger_app.models import LoggerModel
 from obtained_data_app.models import ObtainedDataModel
-from project_components import ServiceResponse
+from components import ServiceResponse
 from user_app.models import UserModel
 from typing import TYPE_CHECKING
 
@@ -32,18 +32,19 @@ class LoggerController:
 
     @classmethod
     def show(cls, logger_id):
+        """Returns the logger object of a user with given id."""
         return cls.find_logger(logger_id)
 
     @classmethod
-    def create(
-        cls,
-        destination: str,
-        user_id: int = None,
-        user: "UserModel" = None
-    ):
-        if user_id:
-            user = UserModel.objects.get(id=user_id)
+    def create(cls, destination: str, user_id: int) -> LoggerModel:
+        """
+        Creates a new logger for a user.
 
+        :param destination: The destination URL to be logged
+        :param user_id: The id of the user to create the logger for
+        """
+
+        user = UserModel.objects.get(id=user_id)
         new_logger = LoggerModel(user=user, destination=destination)
         new_logger.save()
         return new_logger
