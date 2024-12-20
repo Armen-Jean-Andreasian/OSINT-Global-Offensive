@@ -3,7 +3,7 @@ from django.views import View
 from project.paths import TemplatePaths, Reverses
 from django.http import HttpRequest
 from sessions import verify_session
-from dashboard_app.controllers import DashboardController
+from logger_app.controllers import LoggerController
 
 
 class DashboardView(View):
@@ -11,8 +11,12 @@ class DashboardView(View):
         """ Displays the dashboard page to auth-ed users, otherwise redirects the non-authed ones to login. """
 
         if verify_session(request):
-            result = DashboardController.get_loggers(user_id=request.session['user_id'])
-            loggers = {} if not result else result.data
+            result = LoggerController.find_user_loggers(user_id=request.session['user_id'])
+            loggers: list = [] if not result else result.data
+            print(type(loggers[1]))
+            # logger : entry
+            # if entries_found := len(loggers)
+
             context = {"loggers": loggers}
             return render(request, TemplatePaths.dashboard, context)
 
@@ -23,14 +27,14 @@ class DashboardView(View):
         if verify_session(request):
             user_id = request.session['user_id']
 
-            result = DashboardController.create_logger(
+            result = LoggerController.create(
                 user_id=user_id,
                 destination=request.POST.get('destination')
             )
             if result:
                 return redirect(Reverses.dashboard)
             else:
-                loggers_result = DashboardController.get_loggers(user_id=request.session['user_id'])
+                loggers_result = LoggerController.find_user_loggers(user_id=request.session['user_id'])
 
                 loggers = {} if not loggers_result else loggers_result.data
                 context = {"error_message": result.error, "loggers": loggers}
