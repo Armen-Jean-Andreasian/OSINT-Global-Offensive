@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect, reverse
 from django.views import View
-from project.paths import TemplatePaths, Reverses
+from django.contrib import messages
+from project.namespace.reverse_namespace import ReverseNamespace
+from project.namespace.template_namespace import TemplateNamespace
 from sessions import verify_session
 from auth_app.controllers import LoginController
-from django.contrib import messages
-from django.contrib.staticfiles.storage import staticfiles_storage
 
 
 class LoginView(View):
     def get(self, request):
         """Redirects to dashboard page for authenticated users, renders the page for non-authenticated ones."""
         if verify_session(request):
-            return redirect(Reverses.dashboard)
-        return render(request, TemplatePaths.login_template)
+            return redirect(ReverseNamespace.dashboard)
+        return render(request, TemplateNamespace.login)
 
     def post(self, request):
         username = request.POST.get('login')
@@ -21,7 +21,7 @@ class LoginView(View):
 
         if not result:
             messages.error(request, result.error)
-            return render(request, TemplatePaths.login_template)
+            return render(request, TemplateNamespace.login)
 
         # Regenerate session key to prevent fixation attacks
         request.session.cycle_key()
@@ -29,4 +29,4 @@ class LoginView(View):
 
         user = result.data
         request.session['user_id'] = user.id
-        return redirect(reverse(Reverses.dashboard))
+        return redirect(reverse(ReverseNamespace.dashboard))

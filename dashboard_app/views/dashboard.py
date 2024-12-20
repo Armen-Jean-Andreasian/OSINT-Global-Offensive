@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from project.paths import TemplatePaths, Reverses
 from django.http import HttpRequest
+from typing import TYPE_CHECKING
+from project.namespace import ReverseNamespace, TemplateNamespace
 from sessions import verify_session
 from logger_app.controllers import LoggerController
 from obtained_data_app.models import ObtainedDataModel
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from logger_app.models import LoggerModel
@@ -31,9 +31,9 @@ class DashboardView(View):
                 response[logger] = len(obtained_data.data) if obtained_data else 0
 
             context = {"loggers": response}
-            return render(request, TemplatePaths.dashboard, context)
+            return render(request, TemplateNamespace.dashboard, context)
 
-        return redirect(Reverses.login)
+        return redirect(ReverseNamespace.login)
 
     def post(self, request: HttpRequest):
         """ Handle the creation of a new logger from the 'Create Logger' form. """
@@ -45,12 +45,12 @@ class DashboardView(View):
                 destination=request.POST.get('destination')
             )
             if result:
-                return redirect(Reverses.dashboard)
+                return redirect(ReverseNamespace.dashboard)
             else:
                 loggers_result = LoggerController.find_user_loggers(user_id=request.session['user_id'])
 
                 loggers = {} if not loggers_result else loggers_result.data
                 context = {"error_message": result.error, "loggers": loggers}
-                return render(request, TemplatePaths.dashboard, context)
+                return render(request, TemplateNamespace.dashboard, context)
 
-        return redirect(Reverses.login)
+        return redirect(ReverseNamespace.login)
