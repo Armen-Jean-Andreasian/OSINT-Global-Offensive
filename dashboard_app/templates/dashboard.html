@@ -5,7 +5,7 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block extra_styles %}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"> <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 {% endblock %}
 
@@ -20,7 +20,7 @@
         <th>ID</th>
         <th>Destination</th>
         <th>Fake URL</th>
-        <th>Entries Detected</th> <!-- New column for entries -->
+        <th>Entries Detected</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         <td>{{ logger.id }}</td>
         <td>{{ logger.destination }}</td>
         <td>{{ logger.fake_url }}</td>
-        <td>{{ entries_count }}</td> <!-- Display the number of entries -->
+        <td>{{ entries_count }}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -39,8 +39,8 @@
 {% endif %}
 
 {% block extra_scripts %}
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script> <!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
         $('#loggerTable').DataTable();  // Initialize DataTable with hover effect
@@ -59,10 +59,12 @@
     <div id="create-logger-form" class="create-logger-form" style="display: none;">
         <form method="POST" action="{% url 'dashboard_app:dashboard' %}">
             {% csrf_token %}
-            <label for="destination" style="color: #fff;">Destination:</label> <!-- White text for label -->
+            <label for="destination" style="color: #fff;">Destination:</label>
             <input type="url" name="destination" id="destination" required placeholder="Enter a valid URL">
-            <button type="submit">Create</button>
+            <button type="submit" >Create</button>
         </form>
     </div>
 </div>
+
+
 {% endblock %}

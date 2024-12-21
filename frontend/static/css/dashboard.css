@@ -41,7 +41,7 @@ body, html {
 
 .create-logger-form button {
     padding: 10px 20px;
-    background-color: #4CAF50; /* Elegant green button */
+    background-color: #333; /* dark  */
     color: white;
     border: none;
     border-radius: 5px;
@@ -50,7 +50,7 @@ body, html {
 }
 
 .create-logger-form button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #198854; /* green on hover */
 }
 
 /* Table Styling */
@@ -118,4 +118,9 @@ button:hover {
 /* Destination (URL):  label */
 .create-logger-form label {
     color: white;
+}
+
+/* Hide the "Showing" info text */
+.dataTables_info {
+    display: none;
 }
