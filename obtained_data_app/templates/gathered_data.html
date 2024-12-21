@@ -1,0 +1,63 @@
+{% extends "base_logged_in.html" %}
+
+{% load static %}
+
+{% block title %}Obtained Data{% endblock %}
+
+{% block extra_styles %}
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+<!-- Custom Dashboard CSS -->
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #e3e1e1;">Obtained Data</h1>
+
+{% if data %}
+<!-- Table with DataTable 'hover' class for hover effect -->
+<table id="dataTable" class="display hover" style="width: 80%; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <thead>
+    <tr>
+        <th>Logger</th>
+        <th>Date & Time</th>
+        <th>IP</th>
+        <th>Browser</th>
+        <th>Operating System</th>
+        <th>User Agent</th>
+        <th>Host Name</th>
+        <th>ISP</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in data %}
+    <tr>
+        <td>{{ entry.logger }}</td>
+        <td>{{ entry.date_time }}</td>
+        <td>{{ entry.ip }}</td>
+        <td>{{ entry.browser }}</td>
+        <td>{{ entry.operating_system }}</td>
+        <td>{{ entry.user_agent }}</td>
+        <td>{{ entry.host_name }}</td>
+        <td>{{ entry.isp }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="text-align: center; color: #777;">No data found for the provided logger.</p>
+{% endif %}
+
+{% block extra_scripts %}
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();  // Initialize DataTable with hover effect
+    });
+</script>
+{% endblock %}
+{% endblock %}
+```
