@@ -12,14 +12,15 @@
 {% endblock %}
 
 {% block content %}
+<h1> </h1>
 <h1 style="text-align: center; color: #e3e1e1;">Obtained Data</h1>
+
 
 {% if data %}
 <!-- Table with DataTable 'hover' class for hover effect -->
 <table id="dataTable" class="display hover" style="width: 80%; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
     <thead>
     <tr>
-        <th>Logger</th>
         <th>Date & Time</th>
         <th>IP</th>
         <th>Browser</th>
@@ -32,7 +33,6 @@
     <tbody>
     {% for entry in data %}
     <tr>
-        <td>{{ entry.logger }}</td>
         <td>{{ entry.date_time }}</td>
         <td>{{ entry.ip }}</td>
         <td>{{ entry.browser }}</td>

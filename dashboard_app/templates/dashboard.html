@@ -17,23 +17,26 @@
 <table id="loggerTable" class="display hover" style="width: 80%; margin: 20px auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Destination</th>
         <th>Fake URL</th>
         <th>Entries Detected</th>
+        <th>Examine Entries</th>
     </tr>
     </thead>
     <tbody>
     {% for logger, entries_count in loggers.items %}
     <tr>
-        <td>{{ logger.id }}</td>
         <td>{{ logger.destination }}</td>
         <td>{{ logger.fake_url }}</td>
         <td>{{ entries_count }}</td>
+        <td>
+            <a href="{% url 'obtained_data_app:gathered_data' logger.id %}" class="btn btn-primary btn-sm">Examine</a>
+        </td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
+
 {% else %}
 <p style="text-align: center; color: #777;">No loggers found for the user.</p>
 {% endif %}
