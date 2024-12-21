@@ -3,7 +3,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow: auto; /* Allow scrolling */
     font-family: 'Arial', sans-serif; /* Elegant font */
 }
 
@@ -16,6 +16,7 @@ body, html {
     height: 100%;
     background: #e0e0e0; /* Soft gray for particles */
     z-index: -1; /* Behind the content */
+    pointer-events: none; /* Allow interaction with elements on top */
 }
 
 /* Content Section */
@@ -23,7 +24,7 @@ body, html {
     text-align: center;
     margin-top: 20px;
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Ensures form and button are above the particles */
 }
 
 .create-logger-form {
@@ -41,7 +42,7 @@ body, html {
 
 .create-logger-form button {
     padding: 10px 20px;
-    background-color: #333; /* dark  */
+    background-color: #333; /* Dark button */
     color: white;
     border: none;
     border-radius: 5px;
@@ -50,7 +51,7 @@ body, html {
 }
 
 .create-logger-form button:hover {
-    background-color: #198854; /* green on hover */
+    background-color: #198854; /* Green on hover */
 }
 
 /* Table Styling */
@@ -61,6 +62,7 @@ table {
     border-radius: 20px; /* Rounded corners for the table */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slight shadow for the table */
     border-collapse: collapse; /* Ensure table borders are collapsed together */
+    z-index: 1; /* Ensure the table stays clickable and above particles */
 }
 
 /* Table Controls (search, pagination) */
