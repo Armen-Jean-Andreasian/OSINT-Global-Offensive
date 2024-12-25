@@ -1,33 +1,43 @@
-version: "3.9"
+version: '3.8'
 
 services:
+  redis:
+    image: redis:latest
+    ports:
+      - "${REDIS_EXTERNAL_PORT}:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "PING"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
   web:
     build: .
     ports:
-      - "8080:8080"
+      - "${DJANGO_EXTERNAL_PORT}:8080"
     volumes:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
-    stdin_open: true  # This is equivalent to -i (interactive)
-    tty: true         # This is equivalent to -t (allocate a pseudo-TTY)
-    # Remove the runserver command to allow manual execution of commands
-    command: bash -c "python manage.py migrate"
+      - DJANGO_EXTERNAL_PORT=${DJANGO_EXTERNAL_PORT}
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "python manage.py runserver 0.0.0.0:8080"
+
     depends_on:
       - redis
-    networks:
-      - app_network
-
-  redis:
-    image: redis:alpine
-    container_name: redis-container
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    environment:
-      - REDIS_REPLICATION_MODE=master
-    restart: unless-stopped
     networks:
       - app_network
 

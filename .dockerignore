@@ -1,5 +1,4 @@
 .idea/
 .git/
 .gitignore
-decrypt_env.py
-run_django.sh
+_dev/decrypt_env.py

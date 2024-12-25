@@ -1,38 +1,35 @@
 from dotenv import load_dotenv
-from pathlib import Path
 import os
 from utils.file_encryptor import FileEncryptor
 from utils.file_manager import BinaryFileManager
 from utils.hashicorp_loader import HashiCorpLoader
 
 
-def decrypt_and_load_env(env_file='.env') -> None:
+def decrypt_and_load_env(env_path) -> None:
     """Loads the environment vars from .env and .env.enc"""
-    base_dir = Path(__file__).resolve().parent.parent  # nevertheless, keep in this stack to not mess up
+    encryptor = FileEncryptor(files_to_encode=(env_path,), binary_file_manager=BinaryFileManager())
 
-    encryptor = FileEncryptor(files_to_encode=(env_file,), binary_file_manager=BinaryFileManager())
+    if not (os.path.exists(env_path + '.enc') or os.path.exists(env_path)):
+        raise FileNotFoundError(f"File {env_path} not found.")
 
-    if os.path.exists(os.path.join(base_dir, env_file + '.enc')):
+    # from .env.enc
+    if os.path.exists(os.path.join(env_path + '.enc')):
         encryptor.decrypt()
-        load_dotenv()
-        encryptor.encrypt()
 
-    elif os.path.exists(os.path.join(base_dir, env_file)):
-        # trying to find .env (maybe someone messed up)
-        load_dotenv()
-        encryptor.encrypt()
-    else:
-        raise FileNotFoundError(".env file (nor encrypted or decrypted) weren't found in ", base_dir)
+    load_dotenv(dotenv_path=env_path)
+    encryptor.encrypt()
+
+
 
 
 class EnvironmentLoader:
     @classmethod
-    def load(cls):
+    def load(cls, env_path: str) -> None:
         """
         Loads env variables and remote secrets to environ
         """
         if not cls._are_secrets_loaded():
-            decrypt_and_load_env()
+            decrypt_and_load_env(env_path)
             print('.env was loaded')
 
             HashiCorpLoader().load()

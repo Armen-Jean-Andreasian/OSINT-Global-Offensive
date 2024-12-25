@@ -3,7 +3,8 @@
 from utils.file_encryptor import FileEncryptor
 from utils.file_manager import BinaryFileManager
 
-file = '.env',
+
+file = '../config/.env',
 
 encryptor = FileEncryptor(binary_file_manager=BinaryFileManager(), files_to_encode=file)
 
