@@ -14,4 +14,4 @@ error.log
 /test.html
 /master.key
 /config/.env
-
+/config/.env.enc
