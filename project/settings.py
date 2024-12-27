@@ -27,8 +27,6 @@ INSTALLED_APPS = [
     'user_app',
 ]
 
-# Application definition
-
 
 ROOT_URLCONF = "project.urls"
 MIDDLEWARE = [
@@ -41,6 +39,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
     # "project.middlewares.EstablishSessionMiddleware",
+
+    # TODO: will be removed in production
     "project.middlewares.NoCsrfForLocalhostMiddleware",
     # "project.middlewares.NonExistingPathsRedirectorMiddleware",
 ]
@@ -51,10 +51,9 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
-# LONG STORY SHORT. put your css, js files in shared_templates folder then
-# # import using
+# LONG STORY SHORT. put your css, js files in frontend/shared_templates/static folder then import using:
 # {% load static %}
-# <script src="{% static 'welcome.js' %}" defer></script>
+# <script src="{% static 'js/welcome.js' %}" defer></script>
 
 TEMPLATES = [
     {
@@ -106,20 +105,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

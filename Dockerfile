@@ -14,7 +14,7 @@ RUN not_gitmodules -y config/notgitmodules.yaml
 
 EXPOSE 8080
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+#CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"] # removed as runners do it
 
 
 # docker build -t djangologger .

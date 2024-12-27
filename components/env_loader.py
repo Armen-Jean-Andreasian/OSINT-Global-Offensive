@@ -17,9 +17,7 @@ def decrypt_and_load_env(env_path) -> None:
         encryptor.decrypt()
 
     load_dotenv(dotenv_path=env_path)
-    encryptor.encrypt()
-
-
+    # encryptor.encrypt() : as Docker start doesn't have -it - keep the file decrypted
 
 
 class EnvironmentLoader:

@@ -13,3 +13,5 @@ error.log
 /temp.py
 /test.html
 /master.key
+/config/.env
+
