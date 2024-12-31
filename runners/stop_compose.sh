@@ -5,6 +5,6 @@ prefix="djangologger"
 
 container_name="${prefix}-container-${VERSION}"
 
-
-docker compose down
+# beautiful Docker Compose needs env file to shut down the containers. wow
+docker compose --env-file ../config/.env.dump down
 docker stop "${container_name}"

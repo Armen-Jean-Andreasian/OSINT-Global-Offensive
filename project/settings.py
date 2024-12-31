@@ -1,13 +1,16 @@
 from pathlib import Path
 import os
-from components import EnvironmentLoader
+from components.env_loader import are_secrets_loaded
 from django.core.cache import cache
+import dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-cache.clear()
 
-EnvironmentLoader.load(env_path=os.path.join(BASE_DIR, 'config', '.env'))
+if not are_secrets_loaded():
+    cache.clear()
+    dotenv.load_dotenv(BASE_DIR / 'config' / '.env.dump')
+
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
@@ -26,7 +29,6 @@ INSTALLED_APPS = [
     'obtained_data_app',
     'user_app',
 ]
-
 
 ROOT_URLCONF = "project.urls"
 MIDDLEWARE = [

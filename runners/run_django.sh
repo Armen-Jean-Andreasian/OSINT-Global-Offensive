@@ -8,7 +8,8 @@ cd ..
 
 pip install -r config/requirements.txt
 not_gitmodules -y config/notgitmodules.yaml
+python components/env_loader.py
 
-docker compose up -d
+docker compose --env-file config/.env.dump up -d
 
 python manage.py runserver 8080

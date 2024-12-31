@@ -5,7 +5,7 @@ set -e
 
 cd ..
 
-docker compose up -d
+docker compose --env-file config/.env.dump up -d
 
 VERSION="v1" # update version
 prefix="djangologger"
