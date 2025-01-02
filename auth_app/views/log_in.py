@@ -28,5 +28,5 @@ class LoginView(View):
         request.session.save()
 
         user = result.data
-        request.session['user_id'] = user.id
+        request.session['user_id'] = str(user.id)
         return redirect(reverse(ReverseNamespace.dashboard))

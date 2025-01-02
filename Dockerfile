@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y gcc libpq-dev git && rm -rf /var/lib/ap
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements.txt
 RUN not_gitmodules -y config/notgitmodules.yaml
 
+#RUN python /app/components/env_loader.py
 EXPOSE 8080
 
 #CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"] # removed as runners do it

@@ -14,4 +14,4 @@ enc = lambda: encryptor.encrypt()
 # Your usage below
 
 #dec()
-#enc()
+enc()

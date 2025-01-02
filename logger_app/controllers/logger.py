@@ -3,6 +3,9 @@ from obtained_data_app.models import ObtainedDataModel
 from components import ServiceResponse
 from user_app.models import UserModel
 from typing import TYPE_CHECKING
+from django.conf import settings
+
+REDIS_CACHE = settings.CACHE
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
@@ -11,24 +14,35 @@ if TYPE_CHECKING:
 class LoggerController:
     @staticmethod
     def find_logger(logger_id) -> ServiceResponse:
-        try:
-            logger_entry = LoggerModel.objects.get(id=logger_id)
-            print("logger_entry", type(logger_entry))
-        except LoggerModel.DoesNotExist:
-            return ServiceResponse(status=False, error="Logger not found")
-        else:
-            print("logger_entry", type(logger_entry))
-            return ServiceResponse(status=True, data=logger_entry)
+        if not (logger_entry := REDIS_CACHE.get_instance(logger_id)):
+            try:
+                logger_entry: list = LoggerModel.objects.get(id=logger_id)
+            except LoggerModel.DoesNotExist:
+                return ServiceResponse(status=False, error="Logger not found")
+        return ServiceResponse(status=True, data=logger_entry)
+
 
     @staticmethod
     def find_user_loggers(user_id) -> ServiceResponse:
-        try:
-            user = UserModel.objects.get(id=user_id)
-            loggers: "QuerySet" = LoggerModel.objects.filter(user=user)
-        except Exception as err:
-            return ServiceResponse(status=False, error=str(err))
+        """
+        Finds all loggers of a user with given id.
+        First it looks for loggers in the cache by user_id, if not found, then looks in the database.
+        """
+        if not (loggers_entry := REDIS_CACHE.get_instance(user_id)):
+            try:
+                user = UserModel.objects.get(id=user_id)
+                loggers: "QuerySet" = LoggerModel.objects.filter(user=user)
+                loggers_entry = list(loggers)
+
+                REDIS_CACHE.add_instance(instance_id=user_id, instance=loggers_entry)
+                print("Logger found in DB.")
+                return ServiceResponse(status=True, data=loggers_entry)
+
+            except Exception as err:
+                return ServiceResponse(status=False, error=str(err))
         else:
-            return ServiceResponse(status=True, data=list(loggers))
+            print("Logger found in cache.")
+            return ServiceResponse(status=True, data=loggers_entry)
 
     @classmethod
     def show(cls, logger_id):
@@ -51,11 +65,12 @@ class LoggerController:
 
     @classmethod
     def delete(cls, logger_id):
-        if logger_entry := cls.find_logger(logger_id):
+        try:
+            logger_entry = LoggerModel.objects.get(id=logger_id)
+        except LoggerModel.DoesNotExist:
+            return ServiceResponse(status=False, error="Logger not found")
 
-            ObtainedDataModel.objects.filter(logger=logger_entry.data).delete()  # deleting "obtained data" entries
-            logger_entry.data.delete()  # deleting the logger
+        ObtainedDataModel.objects.filter(logger=logger_entry.data).delete()  # deleting "obtained data" entries
+        logger_entry.data.delete()  # deleting the logger
 
-            return ServiceResponse(status=True, message="Logger and its related obtained data successfully deleted.")
-        else:
-            return ServiceResponse(status=False, error=logger_entry.error)
+        return ServiceResponse(status=True, message="Logger and its related obtained data successfully deleted.")

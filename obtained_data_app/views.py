@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 from .helpers import extract_user_data
-from .models import ObtainedDataModel
+from .controllers.obtained_data import ObtainedDataController
 from project.namespace import TemplateNamespace
 from typing import TYPE_CHECKING
 
@@ -32,7 +32,7 @@ def redirect_to_destination(request, dynamic_id):
 
 @require_http_methods(["GET"])
 def display_obtained_data(request, logger_id: "uuid.UUID"):
-    obtained_data = ObtainedDataModel.index(logger_id)
+    obtained_data = ObtainedDataController.find_obtained_data(logger_id)
 
     if obtained_data:
         return render(request, TemplateNamespace.gathered_data, {'data': obtained_data.data})

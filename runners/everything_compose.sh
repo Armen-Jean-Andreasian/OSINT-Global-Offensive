@@ -5,14 +5,11 @@ set -e
 
 cd ..
 
-docker compose up -d
-
 VERSION="v1" # update version
 prefix="djangologger"
 
 image_name="${prefix}-${VERSION}"
 container_name="${prefix}-container-${VERSION}"
-
 
 existing_containers=$(docker ps -a --format "{{.Names}}")
 existing_images=$(docker images --format "{{.Repository}}")
@@ -51,6 +48,9 @@ else
   docker run --name "${container_name}" -it -p 8080:8080 "${image_name}"
 fi
 
+# lets go
+python components/env_loader.py
+docker compose --env-file config/.env.dump up -d
 docker exec -it "${container_name}" python manage.py runserver 0.0.0.0:8080
 
 

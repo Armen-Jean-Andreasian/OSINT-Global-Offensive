@@ -2,9 +2,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 import hashlib
 import os
+import uuid
 
 
 class UserModel(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=255, blank=False, null=False)
     password = models.CharField(max_length=255, blank=False, null=False)
     salt = models.CharField(max_length=255, blank=False, null=False)
