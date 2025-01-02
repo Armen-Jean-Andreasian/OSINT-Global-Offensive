@@ -3,6 +3,7 @@ from obtained_data_app.models import ObtainedDataModel
 from components import ServiceResponse
 from user_app.models import UserModel
 from typing import TYPE_CHECKING
+from django.core.cache import cache
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
@@ -16,9 +17,8 @@ class LoggerController:
             print("logger_entry", type(logger_entry))
         except LoggerModel.DoesNotExist:
             return ServiceResponse(status=False, error="Logger not found")
-        else:
-            print("logger_entry", type(logger_entry))
-            return ServiceResponse(status=True, data=logger_entry)
+        print("logger_entry", type(logger_entry))
+        return ServiceResponse(status=True, data=logger_entry)
 
     @staticmethod
     def find_user_loggers(user_id) -> ServiceResponse:
