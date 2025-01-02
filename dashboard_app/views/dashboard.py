@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from project.namespace import ReverseNamespace, TemplateNamespace
 from sessions import verify_session
 from logger_app.controllers import LoggerController
-from obtained_data_app.models import ObtainedDataModel
+from obtained_data_app.controllers.obtained_data import ObtainedDataController
 
 if TYPE_CHECKING:
     from logger_app.models import LoggerModel
@@ -21,13 +21,10 @@ class DashboardView(View):
             loggers: list | list['LoggerModel'] = result.data if result else []
 
             # we return logger and the number of obtained data of it in a dict
-
             response: dict['LoggerModel': int] = dict()
 
             for logger in loggers:
-                # TODO: later this should check cache
-                obtained_data: "ServiceResponse" = ObtainedDataModel.index(logger_id=logger.id)
-                # TODO: later  obtained_data should be placed in cache with 5-15 minutes ttl
+                obtained_data: "ServiceResponse" = ObtainedDataController.find_obtained_data(logger_id=logger.id)
                 response[logger] = len(obtained_data.data) if obtained_data else 0
 
             context = {"loggers": response}

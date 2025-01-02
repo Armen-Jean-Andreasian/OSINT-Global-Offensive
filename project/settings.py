@@ -3,14 +3,15 @@ import os
 from components.env_loader import are_secrets_loaded
 from django.core.cache import cache
 import dotenv
+from utils.django_redis_cache import Cache
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 if not are_secrets_loaded():
     cache.clear()
     dotenv.load_dotenv(BASE_DIR / 'config' / '.env.dump')
-
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
@@ -33,7 +34,7 @@ INSTALLED_APPS = [
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'LOCATION': f'redis://{os.environ.get("REDIS_HOST")}:{os.environ.get("REDIS_EXTERNAL_PORT")}/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'CONNECTION_POOL_KWARGS': {
@@ -129,3 +130,6 @@ USE_TZ = True
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Redis Cache
+CACHE = Cache(ttl=os.environ.get('REDIS_CACHE_TTL'))

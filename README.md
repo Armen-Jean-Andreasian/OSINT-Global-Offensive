@@ -23,6 +23,11 @@ The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZ
 # Stack
 - Django
 - SQLite3 (PostgreSQL)
+- Redis
+- Docker
+- `not_gitmodules` (original implementation of git modules)
+- HashiCorp Vault
+- HTML/CSS/JavaScript
 
 
 # Secrets, encryption, etc
