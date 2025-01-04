@@ -8,7 +8,7 @@ cd ..
 
 pip install -r config/requirements.txt
 not_gitmodules -y config/notgitmodules.yaml
-python components/env_loader.py
+python project_secrets/entrypoint.py
 
 docker compose --env-file config/.env.dump up -d
 

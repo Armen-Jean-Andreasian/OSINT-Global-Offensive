@@ -4,6 +4,8 @@
 set -e
 
 cd ..
+rm -rf config/.env.dump, config/.vault
+
 
 VERSION="v1" # update version
 prefix="djangologger"
@@ -49,7 +51,7 @@ else
 fi
 
 # lets go
-python components/env_loader.py
+python project_secrets/entrypoint.py
 docker compose --env-file config/.env.dump up -d
 docker exec -it "${container_name}" python manage.py runserver 0.0.0.0:8080
 
