@@ -11,6 +11,7 @@ if __name__ == '__main__':
     from project_secrets.secrets_manager import SecretsManager
     from project_secrets.secrets_loader import SecretsLoader
 else:
+    from project_secrets.secrets_manager import SecretsManager
     from project_secrets.secrets_loader import SecretsLoader
 
 

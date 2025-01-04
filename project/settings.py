@@ -1,17 +1,18 @@
 from pathlib import Path
 import os
-from components.env_loader import are_secrets_loaded
+from project_secrets.secrets_manager import SecretsManager
 from django.core.cache import cache
-import dotenv
 from utils.django_redis_cache import Cache
 
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-if not are_secrets_loaded():
+if not SecretsManager.are_secrets_loaded():
     cache.clear()
-    dotenv.load_dotenv(BASE_DIR / 'config' / '.env.dump')
+    from project_secrets.entrypoint import EnvironmentLoader
+    env_loader = EnvironmentLoader()
+    env_loader.load()
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
@@ -36,6 +37,7 @@ CACHES = {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': f'redis://{os.environ.get("REDIS_HOST")}:{os.environ.get("REDIS_EXTERNAL_PORT")}/1',
         'OPTIONS': {
+            'PASSWORD': os.environ.get("REDIS_PASSWORD"),
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'CONNECTION_POOL_KWARGS': {
                 'max_connections': 100,
