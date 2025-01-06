@@ -1,9 +1,8 @@
+from service_response import ServiceResponse
 import os
-
-from components import ServiceResponse
-from typing import TYPE_CHECKING
 from django.conf import settings
 from ..models import ObtainedDataModel
+from typing import TYPE_CHECKING
 
 REDIS_CACHE = settings.CACHE
 
