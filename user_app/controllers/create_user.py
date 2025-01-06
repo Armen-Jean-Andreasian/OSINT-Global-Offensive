@@ -3,6 +3,7 @@ from user_app.models import UserModel
 
 
 class UserController:
+
     @staticmethod
     def register_user(username: str, password: str) -> ServiceResponse:
         # this check is implemented in RegisterController, however, leaving this here, just in case.
