@@ -9,7 +9,7 @@ from obtained_data_app.controllers.obtained_data import ObtainedDataController
 
 if TYPE_CHECKING:
     from logger_app.models import LoggerModel
-    from components import ServiceResponse
+    from service_response import ServiceResponse
 
 
 class DashboardView(View):

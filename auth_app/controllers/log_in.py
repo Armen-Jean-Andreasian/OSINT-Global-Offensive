@@ -1,4 +1,4 @@
-from components import ServiceResponse
+from service_response import ServiceResponse
 from user_app.models import UserModel
 
 

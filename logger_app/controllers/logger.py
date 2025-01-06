@@ -1,9 +1,9 @@
+from service_response import ServiceResponse
+from django.conf import settings
 from logger_app.models import LoggerModel
 from obtained_data_app.models import ObtainedDataModel
-from components import ServiceResponse
 from user_app.models import UserModel
 from typing import TYPE_CHECKING
-from django.conf import settings
 
 REDIS_CACHE = settings.CACHE
 
