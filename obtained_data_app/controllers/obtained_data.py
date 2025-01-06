@@ -30,7 +30,6 @@ class ObtainedDataController:
                 REDIS_CACHE.add_instance(
                     instance_id=logger_id, instance=found_data_db, ttl=os.environ.get("REDIS_TTL_OBTAINED_DATA")
                 )
-                print("Found data:", found_data_db)
                 print("Obtained data found in DB.")
                 # Return found_data_db, not found_data_cache
                 return ServiceResponse(status=True, data=found_data_db)
