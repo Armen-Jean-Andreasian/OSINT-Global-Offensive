@@ -43,7 +43,8 @@ def display_obtained_data(request, logger_id: "uuid.UUID"):
         return custom_403(request)
 
     # if user has access to data
-    obtained_data = ObtainedDataController.find_obtained_data(logger_id)
+    obtained_data = ObtainedDataController.find_obtained_datum(logger_id)
+
 
     if obtained_data:
         return render(request, TemplateNamespace.gathered_data, {'data': obtained_data.data})

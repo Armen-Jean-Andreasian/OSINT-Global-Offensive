@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class ObtainedDataModel(models.Model):
+    """Doesn't have separate id."""
     logger = models.ForeignKey('logger_app.LoggerModel', on_delete=models.CASCADE, related_name='obtained_datas')
     date_time = models.DateTimeField(default=datetime.utcnow)
     ip = models.CharField(max_length=45, db_index=True)

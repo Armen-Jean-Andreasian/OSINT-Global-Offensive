@@ -2,11 +2,11 @@ from django.core.cache import cache
 from abstractions.model_cache_abs import AbsModelCache
 from service_response import ServiceResponse
 from typing import TYPE_CHECKING
-from ..models import LoggerModel
 
 if TYPE_CHECKING:
     from uuid import UUID
-
+    from ..models import LoggerModel
+from ..models import LoggerModel
 
 class LoggerCache(AbsModelCache):
     SINGLE_ITEM_KEY_TEMPLATE = "logger:{logger_id}"
