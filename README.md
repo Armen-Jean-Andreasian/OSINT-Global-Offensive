@@ -70,4 +70,16 @@ Controller: **(Business Logic Layer)**
 
 Full flow. view receives data and transfers to controller, it does the job, returns ServiceResponse to View which according to ServiceResponse's status decided what to render/redirect.
 
+---
 
+# Stats of 7.01.2025
+
+- Date of start: Nov 26, 2024
+- Lines of code: 26162
+- Languages: 
+    - Python 42.8%
+    - JavaScript 37.9%
+    - HTML 9.8%
+    - CSS 5.7%
+    - Shell 3.2%
+    - Dockerfile 0.6%

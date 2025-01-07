@@ -2,15 +2,13 @@ from pathlib import Path
 import os
 from project_secrets.secrets_manager import SecretsManager
 from django.core.cache import cache
-from utils.django_redis_cache import Cache
-
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 if not SecretsManager.are_secrets_loaded():
     cache.clear()
     from project_secrets.entrypoint import EnvironmentLoader
+
     env_loader = EnvironmentLoader()
     env_loader.load()
 
@@ -132,6 +130,3 @@ USE_TZ = True
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Redis Cache
-CACHE = Cache(ttl=os.environ.get('REDIS_CACHE_TTL'))

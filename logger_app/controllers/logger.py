@@ -1,12 +1,10 @@
 from service_response import ServiceResponse
-from django.conf import settings
 from logger_app.models import LoggerModel
-from obtained_data_app.models import ObtainedDataModel
 from user_app.models import UserModel
 from typing import TYPE_CHECKING
 from ..cache import LoggerCache
-
-REDIS_CACHE = settings.CACHE
+from components.db_helpers import bulk_deletion
+from obtained_data_app.controllers.obtained_data import ObtainedDataController
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
@@ -71,13 +69,25 @@ class LoggerController:
 
     @classmethod
     def delete(cls, logger_id: "UUID"):
-        try:
-            logger_entry = LoggerModel.objects.get(id=logger_id)
-        except LoggerModel.DoesNotExist:
-            return ServiceResponse(status=False, error="Logger not found")
+        log_del_resp: ServiceResponse = bulk_deletion(LoggerModel, id=logger_id)
+        cls.cache.delete_logger(logger_id)  # deleting the logger from cache
 
-        ObtainedDataModel.objects.filter(logger=logger_entry.data).delete()  # deleting "obtained data" entries
-        logger_entry.data.delete()  # deleting the logger
-        cls.cache.delete_logger(logger_id) # deleting the logger from cache
+        message = "Logger and its related obtained data successfully deleted."
 
-        return ServiceResponse(status=True, message="Logger and its related obtained data successfully deleted.")
+        if not log_del_resp:
+            message = f"Logger {logger_id}: " + log_del_resp.message
+
+            if not log_del_resp.data.get("left_to_delete"):  # if logger wasn't found
+                return ServiceResponse(status=False, error="Logger not found")
+            # no need to proceed further if the logger deletion failed, as we delete only one logger
+            return ServiceResponse(status=False, message=message)
+
+        # deleting obtained data models of the logger
+        obt_dat_del_resp = ObtainedDataController.delete_obtained_datum(logger_id)
+
+        # If the deletion of obtained data failed, return a failure message
+        if not obt_dat_del_resp.status:
+            return ServiceResponse(status=False, message=message + "\n" + obt_dat_del_resp.message)
+
+        # If both logger and obtained data deletion are successful
+        return ServiceResponse(status=True, message=message)

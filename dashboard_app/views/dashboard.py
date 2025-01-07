@@ -24,7 +24,7 @@ class DashboardView(View):
             response: dict['LoggerModel': int] = dict()
 
             for logger in loggers:
-                obtained_data: "ServiceResponse" = ObtainedDataController.find_obtained_data(logger_id=logger.id)
+                obtained_data: "ServiceResponse" = ObtainedDataController.find_obtained_datum(logger_id=logger.id)
                 response[logger] = len(obtained_data.data) if obtained_data else 0
 
             context = {"loggers": response}

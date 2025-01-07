@@ -1,63 +1,53 @@
 from service_response import ServiceResponse
-import os
-from django.conf import settings
 from ..models import ObtainedDataModel
 from typing import TYPE_CHECKING
-
-REDIS_CACHE = settings.CACHE
-
+from ..cache import ObtainedDataCache
+from components.db_helpers import bulk_deletion
 
 if TYPE_CHECKING:
-    import uuid
+    from uuid import UUID
 
 
 class ObtainedDataController:
-    @staticmethod
-    def find_obtained_data(logger_id: "uuid.UUID") -> ServiceResponse:
+    cache = ObtainedDataCache
+
+    @classmethod
+    def find_obtained_datum(cls, logger_id: "UUID") -> ServiceResponse:
         """
         Finds all obtained data of a logger with given id.
         First it looks for obtained data in the cache by logger_id, if not found, then looks in the database.
         """
+        datum_from_redis: ServiceResponse = cls.cache.get_obtained_datum(logger_id)
+
         # if not found in cache
-        if not (found_data_cache := REDIS_CACHE.get_instance(logger_id)):
+        if not datum_from_redis:
             # look in the database
-            found_data_db: list = list(ObtainedDataModel.objects.filter(logger__id=logger_id))
+            found_datum_db: list = list(ObtainedDataModel.objects.filter(logger__id=logger_id))
             # if not found in the database
-            if not found_data_db:
+            if not found_datum_db:
                 return ServiceResponse(status=False, error="No obtained data found.")
-            else:
-                # if found in the database, save it to cache
-                REDIS_CACHE.add_instance(
-                    instance_id=logger_id, instance=found_data_db, ttl=os.environ.get("REDIS_TTL_OBTAINED_DATA")
-                )
-                print("Obtained data found in DB.")
-                # Return found_data_db, not found_data_cache
-                return ServiceResponse(status=True, data=found_data_db)
-        else:
-            print("Obtained data found in cache.")
-            return ServiceResponse(status=True, data=found_data_cache)
 
+            # if found in the database, save it to cache
+            cls.cache.set_obtained_datum(logger_id, obtained_data_instances=found_datum_db)
+            return ServiceResponse(status=True, data=found_datum_db)
 
-    @staticmethod
-    def delete_records(logger_id: "uuid.UUID") -> ServiceResponse:
+        return ServiceResponse(status=True, data=datum_from_redis.data)
+
+    @classmethod
+    def delete_obtained_datum(cls, logger_id: "UUID") -> ServiceResponse:
         """
         Deletes all obtained data records of a logger with given id.
-        """
-        found_data_db = ObtainedDataModel.objects.filter(logger__id=logger_id)
 
-        if not found_data_db:
-            return found_data_db
-        else:
-            removed_data_count: int = 0
-            try:
-                for data in found_data_db:
-                    data.delete()
-                    removed_data_count += 1
-            except Exception as err:
-                return ServiceResponse(
-                    status=False,
-                    message=f"Failed to delete remaining records. {removed_data_count} data records deleted.",
-                    error=str(err)
-                )
-            else:
-                return ServiceResponse(status=True, message=f"{removed_data_count} data records deleted.")
+        Returns: ServiceResponse[bool, str, list], ServiceResponse[bool, str, str, list]
+
+        """
+        del_resp: ServiceResponse = bulk_deletion(model=ObtainedDataModel, logger__id=logger_id)
+
+        # deleting obtained datum from cache in advance
+        cls.cache.delete_obtained_datum(logger_id)
+
+        if not del_resp:
+            if not del_resp.data.get('left_to_delete'):
+                return ServiceResponse(status=False, message=f"Obtained data for logger {logger_id} not found")
+
+        return del_resp
