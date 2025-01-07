@@ -26,12 +26,14 @@ class ObtainedDataController:
             # if not found in the database
             if not found_datum_db:
                 return ServiceResponse(status=False, error="No obtained data found.")
-
-            # if found in the database, save it to cache
-            cls.cache.set_obtained_datum(logger_id, obtained_data_instances=found_datum_db)
-            return ServiceResponse(status=True, data=found_datum_db)
-
-        return ServiceResponse(status=True, data=datum_from_redis.data)
+            else:
+                # if found in the database, save it to cache
+                cls.cache.set_obtained_datum(logger_id, obtained_data_instances=found_datum_db)
+                print("Obtained data found in DB.")
+                return ServiceResponse(status=True, data=found_datum_db)
+        else:
+            print("Obtained data found in cache.")
+            return ServiceResponse(status=True, data=datum_from_redis.data)
 
     @classmethod
     def delete_obtained_datum(cls, logger_id: "UUID") -> ServiceResponse:
