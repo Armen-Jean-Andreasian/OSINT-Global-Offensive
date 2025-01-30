@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'user_app',
 ]
 
+# redis
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -90,6 +91,10 @@ TEMPLATES = [
         },
     },
 ]
+
+# Folder for collected statics via `python manage.py collectstatic` for nginx
+STATIC_ROOT = os.path.join(BASE_DIR, 'nginx', 'staticfiles')
+
 
 WSGI_APPLICATION = "project.wsgi.application"
 
