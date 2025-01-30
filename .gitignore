@@ -17,3 +17,5 @@ error.log
 /config/.env.enc
 /config/.env.dump
 /config/.vault
+/staticfiles/
+/nginx/staticfiles/

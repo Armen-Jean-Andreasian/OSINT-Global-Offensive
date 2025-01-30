@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from ..models import LoggerModel
 from ..models import LoggerModel
 
+
 class LoggerCache(AbsModelCache):
     SINGLE_ITEM_KEY_TEMPLATE = "logger:{logger_id}"
     MULTIPLE_ITEMS_KEY_TEMPLATE = "loggers:user:{user_id}"
@@ -15,7 +16,10 @@ class LoggerCache(AbsModelCache):
 
     @classmethod
     def get_logger(cls, logger_id: "UUID") -> ServiceResponse[bool, str] | ServiceResponse[bool, LoggerModel]:
-        """Retrieve a single logger from cache or DB."""
+        """
+        Retrieve a single logger from cache or DB.
+
+        """
         cache_key = cls.SINGLE_ITEM_KEY_TEMPLATE.format(logger_id=logger_id)
         if logger_from_redis := cache.get(cache_key):  # Logger
             return ServiceResponse(status=True, data=logger_from_redis)
