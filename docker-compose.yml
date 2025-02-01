@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   redis:
     image: redis:latest
@@ -21,15 +23,15 @@ services:
     container_name: djangologger-container-v1
     build:
       context: .
-    ports:
-      - "${DJANGO_EXTERNAL_PORT}:8080"
     env_file:
       - config/.env.dump
     networks:
       - app_network
     depends_on:
       - redis
-    command: python manage.py runserver 0.0.0.0:8080
+    command: python manage.py runserver 0.0.0.0:8000  # in container
+    expose:
+      - "8000"  # in docker network
 
   nginx:
     build:
