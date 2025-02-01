@@ -63,6 +63,20 @@ function docker_compose_up_no_cache() {
   docker-compose --env-file config/.env.dump up --build --no-cache
 }
 
+# Runs docker compose
+function docker_compose_up() {
+    docker compose --env-file config/.env.dump up
+}
+
+# Packs static files for nginx
+function pack_statics_for_nginx() {
+  if [ -d ./nginx/staticfiles/ ]; then
+      echo "Static files already packed."
+  else
+      python manage.py collectstatic
+  fi
+}
+
 # Starts django from the project
 function run_django_locally() {
   local django_internal_port="${1:-8080}"
