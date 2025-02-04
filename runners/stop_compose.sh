@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source base.sh
+source scripts.sh
 set -e
 
 stop_docker_compose

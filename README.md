@@ -1,3 +1,16 @@
+# Stack 
+
+<p align="center">
+<img src="https://e7.pngegg.com/pngimages/10/113/png-clipart-django-web-development-web-framework-python-software-framework-django-text-trademark-thumbnail.png" alt="Python" width="48" height="48" />
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFRo0Y8B-K-skRKINQNGB_LQz029Cf9VEcsw&s" alt="Go" width="48" height="48" />
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Jxyptf2jPCbEozdlBsQhJBzws8ek2CoeZg&s" alt="Go" width="48" height="48" />
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-4q2h8RjVBQY75dIRbZI3A4V3G_UGGVutUB72egCcWuKt2VZA2MvSsb5CgLT9l5fXELg&usqp=CAU" alt="Go" width="48" height="48" />
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsbQP2DoSO32lDEtfRfMDsrpAhn-qUxh-9YMvFqDuYuH5NgkfrBlj1l3mjDGca0z4z7Fg&usqp=CAU" alt="Go" width="48" height="48" />
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLXdPtfBobUsKl5vwAxC34rwz9EsqOF2Tj9w&s" alt="" width="48" height="48" />
+</p>
+
+
+
 #### [20.12.2024] 
 New update of the project. 
 
@@ -25,6 +38,7 @@ The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZ
 - SQLite3 (PostgreSQL)
 - Redis
 - Docker
+- Nginx
 - `not_gitmodules` (original implementation of git modules)
 - HashiCorp Vault
 - HTML/CSS/JavaScript
