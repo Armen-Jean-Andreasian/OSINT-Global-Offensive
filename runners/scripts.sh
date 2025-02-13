@@ -59,8 +59,12 @@ function docker_compose_up_build() {
 }
 
 # Builds and runs docker compose. Rebuilds all layers
-function docker_compose_up_no_cache() {
-  docker-compose --env-file config/.env.dump up --build --no-cache
+function docker_compose_from_scratch() {
+  docker-compose down
+
+  docker-compose --env-file config/.env.dump build --no-cache
+
+  docker-compose --env-file config/.env.dump up --remove-orphans -d
 }
 
 # Runs docker compose

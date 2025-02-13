@@ -13,9 +13,8 @@ class LoggerModel(models.Model):
     def save(self, *args, **kwargs):
         """Override the save method to automatically generate the fake_url before saving the object."""
         if not self.fake_url:
-            #TODO: fix this after deploy
-            base_url = os.environ.get('ALLOWED_HOSTS').split(',')[0]
-            self.fake_url = 'http://' + base_url + f":8080" + f"/obtain_data/{self.id}"
+            # TODO
+            self.fake_url = 'http://' + os.environ.get('DOMAIN_FOR_FAKE_URL') + f":80" + f"/obtain_data/{self.id}"
         super().save(*args, **kwargs)
 
     def __str__(self):

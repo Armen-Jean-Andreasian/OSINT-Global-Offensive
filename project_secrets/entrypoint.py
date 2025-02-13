@@ -18,7 +18,8 @@ else:
 class EnvironmentLoader:
     def __init__(
         self,
-        config_folder: str = os.path.join(Path(__file__).resolve().parent.parent, 'config'),
+        config_folder: str = os.path.join(Path(__file__).resolve().parent.parent, 'config', ),
+        save_dump=True,
     ):
         """
         :param config_folder: str - path to the folder where .vault.enc file is stored
@@ -27,6 +28,7 @@ class EnvironmentLoader:
         self.vault_decrypted_fp: str = os.path.join(config_folder, ".vault")
         self.env_dump_fp: str = os.path.join(config_folder, ".env.dump")
         self.config_folder = config_folder
+        self.save_dump = save_dump
 
     def load(self) -> None:
         """
@@ -41,11 +43,12 @@ class EnvironmentLoader:
 
             # Case 2 | If .vault exists (is already decrypted) => fetch remote secrets, load them and early return
             if os.path.exists(self.vault_decrypted_fp):
-                return SecretsLoader.load_from_vault(self.vault_decrypted_fp, self.config_folder)
+                return SecretsLoader.load_from_vault(self.vault_decrypted_fp, self.config_folder, self.save_dump)
 
             # Case 3 | If .vault.enc exists => decrypt it, load and early return
             if os.path.exists(self.vault_encrypted_fp):
-                return SecretsLoader.decrypt_and_load_from_vault(self.vault_decrypted_fp, self.config_folder)
+                return SecretsLoader.decrypt_and_load_from_vault(self.vault_decrypted_fp, self.config_folder,
+                                                                 self.save_dump)
 
             # Case 4 | If none of the above => raise error
             raise FileNotFoundError(

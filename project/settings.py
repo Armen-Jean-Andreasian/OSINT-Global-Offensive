@@ -28,7 +28,7 @@ else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django']
 
 # Core Django settings ================================================================================================
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 INSTALLED_APPS = [
     'django.contrib.admin',

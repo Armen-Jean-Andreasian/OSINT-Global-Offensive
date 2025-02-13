@@ -18,7 +18,9 @@ class SecretsFetcher:
     - load method : Calls the .load method of HashiCorpLoader, which loads secrets to environment variables.
         *It doesn’t use .env.dump file but loads from the HashiCorpLoader’s instance.
     """
-    def __init__(self, folder_to_save_env_dump: str):
+
+    def __init__(self, folder_to_save_env_dump: str, save_dump: bool):
+        self.save_dump = save_dump  # for debug
         self.folder_to_save_env_dump = folder_to_save_env_dump
         self.hashicorp_loader = None
 
@@ -27,10 +29,7 @@ class SecretsFetcher:
         Fetches the secrets from HashiCorp vault, loads HashiCorp secrets to environment variables.
         HashiCorpLoader fetches the secrets at the moment of initialization, and keeps in its state.
         """
-        self.hashicorp_loader = HashiCorpLoader(
-            dump_env_to_file=True,
-            folder_to_save_env_dump=self.folder_to_save_env_dump
-        )
+        self.hashicorp_loader = HashiCorpLoader(folder_to_save_dump=self.folder_to_save_env_dump)
 
     def load(self) -> None:
         """
