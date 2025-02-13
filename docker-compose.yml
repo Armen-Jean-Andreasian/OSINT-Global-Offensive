@@ -46,6 +46,46 @@ services:
     networks:
       - app_network
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    expose:
+      - '5672'
+    env_file:
+      - config/.env.dump
+    environment:
+      RABBITMQ_DEFAULT_USER: "${RMQ_USERNAME}"
+      RABBITMQ_DEFAULT_PASS: "${RMQ_PASSWORD}"
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - redis
+    networks:
+      - app_network
+
+  ip_deanon_service:
+    build:
+      context: services/go_services/ip_deanonymizer
+    container_name: go-ip-deanon-container
+    env_file:
+      - config/.env.dump
+    networks:
+      - app_network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    expose:
+      - "8080"
+    command: ["./ip_deanon_service"]
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
 volumes:
   redis_data:
 

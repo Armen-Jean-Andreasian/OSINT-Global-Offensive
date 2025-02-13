@@ -25,7 +25,8 @@ DEBUG = os.environ.get('DEBUG')
 if DEBUG == "0":
     ALLOWED_HOSTS = ['django']  # for nginx to refer to the django app in the docker-compose network
 else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django']
+    ...
+    # ALLOWED_HOSTS = ['example.com'] # wherever django is installed
 
 # Core Django settings ================================================================================================
 SECRET_KEY = os.environ.get('SECRET_KEY')

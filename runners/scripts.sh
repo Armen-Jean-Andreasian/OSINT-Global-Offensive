@@ -93,3 +93,4 @@ function stop_docker_compose() {
   # docker stop "${DJANGO_CONTAINER_NAME}"
 }
 
+runners/up_build.sh
