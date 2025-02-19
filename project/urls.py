@@ -1,8 +1,10 @@
-# project/urls.py
-
 from django.contrib import admin
 from django.urls import path, include, re_path
 from components.http_errors import custom_404
+
+# this path should be excluded from auth.
+PATH_FOR_FISH = 'obtain_data/'
+LOGIN_PAGE = '/auth'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

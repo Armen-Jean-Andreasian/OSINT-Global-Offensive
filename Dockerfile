@@ -6,6 +6,13 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY . /app/
 
+# Checks if master.key exists, otherwise ask for input then saves it
+#RUN if [ ! -f master.key ]; then \
+#        echo "Enter the encryption key: "; \
+#        read key; \
+#        echo $key > config/master.key; \
+#    fi
+
 RUN apt-get update && apt-get install -y gcc libpq-dev git && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements.txt

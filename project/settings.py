@@ -23,7 +23,8 @@ DEBUG = os.environ.get('DEBUG')
 """
 
 if DEBUG == "0":
-    ALLOWED_HOSTS = ['django']  # for nginx to refer to the django app in the docker-compose network
+    # 'django': for nginx to refer to the django app in the docker-compose network
+    ALLOWED_HOSTS = ['django']  # add your other domains here later
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django']
 
@@ -54,9 +55,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # Custom middlewares
-    # 'project.middlewares.EstablishSessionMiddleware',
     'project.middlewares.NoCsrfForLocalhostMiddleware',  # TODO: Remove in production
-    # 'project.middlewares.NonExistingPathsRedirectorMiddleware',
+    'project.middlewares.RequireLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -68,6 +68,36 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db' / 'db.sqlite3',
     }
+}
+
+# Logging settings =====================================================================================================
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "stream": "ext://sys.stdout",  # forcefully sending logs to stdout
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+
+        # logger for middlewares
+        "project.middlewares": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
 }
 
 # Redis cache settings ================================================================================================

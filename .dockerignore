@@ -2,5 +2,9 @@
 .git/
 .gitignore
 _dev/decrypt_env.py
-config/.env.dump
-config/.vault
+# Dont ignore these two files (uncomment)
+#config/.env.dump
+#config/.vault
+# As the project_secrets/entrypoint.py looks for them, if they exist - it wont ask for manual input
+# As a result, dockerignoring them will lead to retrieval fail in container as they aint moved to it, and not inputted manually
+# For that reason it's better to delete them before building the image/docker-compose up
