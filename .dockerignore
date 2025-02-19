@@ -2,3 +2,5 @@
 .git/
 .gitignore
 _dev/decrypt_env.py
+config/.env.dump
+config/.vault
