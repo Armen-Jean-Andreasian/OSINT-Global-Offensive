@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from uuid import UUID
     from ..models import LoggerModel
-from ..models import LoggerModel
+
 
 
 class LoggerCache(AbsModelCache):
@@ -15,7 +15,7 @@ class LoggerCache(AbsModelCache):
     TTL: int
 
     @classmethod
-    def get_logger(cls, logger_id: "UUID") -> ServiceResponse[bool, str] | ServiceResponse[bool, LoggerModel]:
+    def get_logger(cls, logger_id: "UUID") -> ServiceResponse[bool, str] | ServiceResponse[bool, "LoggerModel"]:
         """
         Retrieve a single logger from cache or DB.
 
@@ -26,13 +26,13 @@ class LoggerCache(AbsModelCache):
         return ServiceResponse(status=False, data=None)
 
     @classmethod
-    def set_logger(cls, logger_id: "UUID", logger_instance: LoggerModel) -> None:
+    def set_logger(cls, logger_id: "UUID", logger_instance: "LoggerModel") -> None:
         """Cache a single logger."""
         cache_key = cls.SINGLE_ITEM_KEY_TEMPLATE.format(logger_id=logger_id)
         cache.set(cache_key, logger_instance, cls.TTL)
 
     @classmethod
-    def get_loggers(cls, user_id: "UUID") -> ServiceResponse[bool, str] | ServiceResponse[bool, list[LoggerModel]]:
+    def get_loggers(cls, user_id: "UUID") -> ServiceResponse[bool, str] | ServiceResponse[bool, list["LoggerModel"]]:
         """Retrieves all loggers of a user from cache or DB."""
         cache_key = cls.MULTIPLE_ITEMS_KEY_TEMPLATE.format(user_id=user_id)
         if loggers_from_redis := cache.get(cache_key):  # list
@@ -40,7 +40,7 @@ class LoggerCache(AbsModelCache):
         return ServiceResponse(status=False, data=None)
 
     @classmethod
-    def set_loggers(cls, user_id: "UUID", logger_instances: list[LoggerModel]) -> None:
+    def set_loggers(cls, user_id: "UUID", logger_instances: list["LoggerModel"]) -> None:
         """Cache multiple loggers for a user."""
         cache_key = cls.MULTIPLE_ITEMS_KEY_TEMPLATE.format(user_id=user_id)
         cache.set(cache_key, logger_instances, cls.TTL)
