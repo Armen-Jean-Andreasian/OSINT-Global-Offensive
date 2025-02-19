@@ -33,7 +33,7 @@ class DashboardView(View):
         return redirect(ReverseNamespace.login)
 
     def post(self, request: HttpRequest):
-        """ Handle the creation of a new logger from the 'Create Logger' form. """
+        """ Handles the creation of a new logger from the 'Create Logger' form. """
         if verify_session(request):
             user_id = request.session['user_id']
 
