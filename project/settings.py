@@ -87,7 +87,7 @@ CACHES = {
 }
 
 # Nginx static files folder ============================================================================================
-STATIC_ROOT = os.path.join(BASE_DIR, 'nginx', 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'nginx', 'staticfiles')  # Collected statics via `python manage.py collectstatic`
 
 # Password validation =================================================================================================
 AUTH_PASSWORD_VALIDATORS = [
@@ -112,6 +112,11 @@ USE_I18N = True
 USE_TZ = True
 
 # Frontend stuff =======================================================================================================
+"""
+LONG STORY SHORT. put your css, js files in frontend/shared_templates/static folder then import using:
+{% load static %}
+<script src="{% static 'js/welcome.js' %}" defer></script>
+"""
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend', 'static'),
@@ -122,7 +127,7 @@ TEMPLATES = [
         'DIRS': [
             BASE_DIR / 'frontend' / 'shared_templates',
             BASE_DIR / 'templates',
-            ],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
