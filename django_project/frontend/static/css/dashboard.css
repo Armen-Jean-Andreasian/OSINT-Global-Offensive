@@ -1,0 +1,128 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto; /* Allow scrolling */
+    font-family: 'Arial', sans-serif; /* Elegant font */
+}
+
+/* Particles Background */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0; /* Soft gray for particles */
+    z-index: -1; /* Behind the content */
+    pointer-events: none; /* Allow interaction with elements on top */
+}
+
+/* Content Section */
+.create-logger-container {
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1; /* Ensures form and button are above the particles */
+}
+
+.create-logger-form {
+    display: none;
+    margin-top: 20px;
+}
+
+.create-logger-form input[type="url"] {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc; /* Light border for inputs */
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.create-logger-form button {
+    padding: 10px 20px;
+    background-color: #333; /* Dark button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-logger-form button:hover {
+    background-color: #198854; /* Green on hover */
+}
+
+/* Table Styling */
+table {
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.5); /* White with 50% opacity */
+    border-radius: 20px; /* Rounded corners for the table */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slight shadow for the table */
+    border-collapse: collapse; /* Ensure table borders are collapsed together */
+    z-index: 1; /* Ensure the table stays clickable and above particles */
+}
+
+/* Table Controls (search, pagination) */
+.dataTables_wrapper {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center-align everything */
+    margin-top: 10px; /* Reduce space above controls */
+}
+
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_paginate,
+.dataTables_wrapper .dataTables_length { /* Add this line */
+    margin-top: 10px;
+    margin-bottom: 10px; /* Reduce space below controls */
+}
+
+/* Hide the search input */
+.dataTables_filter {
+    display: none; /* Hide the search filter */
+}
+
+/* Hide the pagination controls */
+.dataTables_paginate {
+    display: none; /* Hide pagination */
+}
+
+/* Hide the "Show entries" dropdown */
+.dataTables_length {
+    display: none; /* Hide the "Show entries" dropdown */
+}
+
+/* Header and Title */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #777; /* Softer gray for title text */
+    margin-bottom: 20px;
+}
+
+/* Button */
+button {
+    padding: 10px 20px;
+    background-color: #333; /* Dark button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444; /* Darker button on hover */
+}
+
+/* Destination (URL):  label */
+.create-logger-form label {
+    color: white;
+}
+
+/* Hide the "Showing" info text */
+.dataTables_info {
+    display: none;
+}

@@ -1,0 +1,41 @@
+# Git and version control
+.git
+.gitignore
+
+# IDE and editor settings
+.idea/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Virtual environments
+venv/
+.env
+*.env
+Pipfile
+Pipfile.lock
+
+# Docker-related files
+.dockerignore
+Dockerfile
+
+# Logs and temp files
+logs/
+*.log
+*.out
+*.pid
+*.seed
+nohup.out
+
+# Tests
+tests/
+test_*.py
+*.test.py
+
+# Configuration files
+config/.env.dump
+config/.vault

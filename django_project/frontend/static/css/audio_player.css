@@ -1,0 +1,50 @@
+/* music_player.css */
+
+/* Background Audio Player Container */
+.audio-player-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+}
+
+/* Play/Pause Button */
+#playPause {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #1f6a96;
+    border-radius: 5px;
+    background-color: #282122;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#playPause:hover {
+    background-color: #155477;
+}
+
+/* Volume Slider */
+#volumeControl {
+    width: 100px;
+    height: 5px;
+    cursor: pointer;
+    appearance: none;
+    background-color: #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+#volumeControl::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background-color: #1f6a96;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#volumeControl::-webkit-slider-thumb:hover {
+    background-color: #155477;
+}

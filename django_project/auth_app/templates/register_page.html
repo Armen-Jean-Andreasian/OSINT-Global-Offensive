@@ -1,0 +1,46 @@
+{% extends "base_logged_out.html" %}
+
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block extra_styles %}
+<!-- JS/CSS -->
+<link rel="stylesheet" href="{% static 'css/register_page.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<h1></h1>
+
+<!-- Display success or error messages -->
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Registration Form -->
+<form id="register-form" method="POST" action="{% url 'auth_app:register' %}">
+    {% csrf_token %}
+
+    <!-- Username -->
+    {{ form.username.label_tag }}
+    {{ form.username }}<br>
+
+    <!-- Password1 -->
+    {{ form.password1.label_tag }}
+    {{ form.password1 }}<br>
+
+    <!-- Password2 -->
+    {{ form.password2.label_tag }}
+    {{ form.password2 }}<br>
+
+    <button type="submit">Register</button>
+</form>
+
+{% endblock %}
