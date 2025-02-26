@@ -4,16 +4,21 @@ import traceback
 from dotenv import load_dotenv
 from app_logs import Logger
 
+DOT_VAULT = "secrets/.vault"
+DOT_ENV = ".env"
 
-TOKEN_URL = "https://auth.idp.hasshicorp.com/oauth2/token"
+TOKEN_URL = "https://auth.idp.hashicorp.com/oauth2/token"
 
 logger = Logger(module_name="secrets")
 
-load_dotenv('./.vault')
+load_dotenv(DOT_VAULT)
 
 
 def retrieve_api_token():
     """Fetches API token from HashiCorp if not already set."""
+    if not os.environ.get("LOADED"):
+        raise Exception(f"Vault variables were not loaded to environ. {os.path.abspath(DOT_VAULT)}")
+
     if os.environ.get("HASHICORP_API_TOKEN"):
         logger.info("API token is already set.")
         return
@@ -60,7 +65,7 @@ def retrieve_secrets():
 
 
 def save_to_file(secrets: dict):
-    with open('../.env', 'w') as file:
+    with open(DOT_ENV, 'w') as file:
         for k, v in secrets.items():
             file.write(f"{k}={v}\n")
     logger.info("All secrets were successfully saved to .env")
@@ -72,6 +77,6 @@ if __name__ == "__main__":
         secrets = retrieve_secrets()
         save_to_file(secrets)
     except Exception as e:
-        logger.error(f"Unhandled error: {e}\n{traceback.format_exc(limit=5)}")  # Ограничиваем стек до 5 уровней
+        logger.error(f"Unhandled error: {e}\n{traceback.format_exc(limit=5)}")
     finally:
         logger.clear_logs()

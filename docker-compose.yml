@@ -1,14 +1,4 @@
 services:
-  init_container:
-    build:
-      context: init_container
-    command: python3 main.py
-    restart: "no"
-    environment:
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY} # set ENCRYPTION_KEY in bash before run
-#    volumes: # plan b. not needed for now
-#      - init_container/config
-
   redis:
     image: redis:latest
     container_name: redis-container

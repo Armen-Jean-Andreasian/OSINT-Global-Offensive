@@ -1,4 +1,0 @@
-requests==2.32.3
-not_gitmodules==0.4.4
-cryptography~=44.0.0
-python-dotenv>=1.0.1

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\pc\Desktop\lger\OSINT-Global-Offensive\secrets\retrieve.py", line 71, in <module>
+    retrieve_api_token()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\Desktop\lger\OSINT-Global-Offensive\secrets\retrieve.py", line 40, in retrieve_api_token
+    raise RuntimeError(f"Failed to retrieve API token. Code: {response.status_code}, Response: {response.text}")
+RuntimeError: Failed to retrieve API token. Code: 400, Response: {"error":"invalid_request","error_description":"The request is missing required parameters or has invalid parameters."}
+
