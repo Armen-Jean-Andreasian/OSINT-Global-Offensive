@@ -11,3 +11,4 @@ __pycache__/
 /init_container/config/.env.dump
 *.pyc
 /TODO
+/secrets/logs/

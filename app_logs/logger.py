@@ -32,10 +32,14 @@ class Logger:
     _thread_logs = threading.local()
 
     def __init__(self, module_name: str):
+        """Initializes logger with separate error and stack trace logs."""
         self.error_log_file = f"logs/error_logs_{module_name}/.error.log"
         force_create_file(self.error_log_file)
         self.stack_trace_dir = f"logs/stack_traces_{module_name}/"
         force_create_dir(self.stack_trace_dir)
+
+        if not hasattr(self._thread_logs, "logs"):
+            self._thread_logs.logs = []
 
         # console logger (INFO+)
         self.console_logger = logging.getLogger(module_name)
@@ -54,14 +58,10 @@ class Logger:
             self.error_logger.addHandler(file_handler)
 
     def info(self, message: str):
-        """
-        Logs info messages to console, also keeps them for error logs.
-        """
+        """Logs info messages to console, also keeps them for error logs."""
         self.console_logger.info(message)
 
         # store INFO log in thread-local storage
-        if not hasattr(self._thread_logs, "logs"):
-            self._thread_logs.logs = []
         self._thread_logs.logs.append(message)
 
     def error(self, message: str):
@@ -69,7 +69,7 @@ class Logger:
 
         error_title = message.split("\n")[0]
         error_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        error_traceback = traceback.format_exc()
+        error_traceback = traceback.format_exc(limit=5)
 
         # If there's no real traceback, remove it to avoid extra lines
         if not error_traceback.strip() or "NoneType: None" in error_traceback:
@@ -80,16 +80,12 @@ class Logger:
         stack_trace_filename = f"{error_time.replace(':', '-')}_{error_summary}.log"
         stack_trace_path = os.path.join(self.stack_trace_dir, stack_trace_filename)
 
-        # writing stack trace to stack trace file
-        def write_trace():
-            with open(stack_trace_path, "w", encoding="utf-8") as f:
-                f.write(error_traceback)
+        # ensure stack trace directory exists
+        force_create_dir(os.path.dirname(stack_trace_path))
 
-        try:
-            write_trace()
-        except FileNotFoundError:
-            os.makedirs(os.path.dirname(stack_trace_path), exist_ok=True)
-            write_trace()
+        # writing stack trace to stack trace file
+        with open(stack_trace_path, "w", encoding="utf-8") as f:
+            f.write(error_traceback)
 
         # writing to error.log file
         error_content = f"{error_time} : {error_title} - See {stack_trace_path} file."
@@ -99,8 +95,6 @@ class Logger:
         self.clear_logs()
 
     def clear_logs(self):
-        """
-        Flushed stored INFO logs for the current thread.
-        """
+        """Flushes stored INFO logs for the current thread."""
         if hasattr(self._thread_logs, "logs"):
             del self._thread_logs.logs

@@ -2,7 +2,7 @@ import os
 import requests
 import traceback
 from dotenv import load_dotenv
-from logs import Logger
+from app_logs import Logger
 
 
 TOKEN_URL = "https://auth.idp.hasshicorp.com/oauth2/token"
