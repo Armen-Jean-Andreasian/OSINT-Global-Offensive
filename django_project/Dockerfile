@@ -10,10 +10,13 @@ WORKDIR /django_project
 COPY config/requirements.txt config/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements.txt
-# not_gitmodules removed to init_container, as well as  python-dotenv, requests, cryptography
 
 COPY . .
 COPY manage.py .
+
+
+# Generate static
+RUN python manage.py collectstatic --noinput
 
 
 

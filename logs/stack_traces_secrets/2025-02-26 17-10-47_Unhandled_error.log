@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "C:\Users\pc\Desktop\lger\OSINT-Global-Offensive\secrets\retrieve.py", line 76, in <module>
-    retrieve_api_token()
-    ~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\pc\Desktop\lger\OSINT-Global-Offensive\secrets\retrieve.py", line 20, in retrieve_api_token
-    raise Exception(f"Vault variables were not loaded to environ. {os.path.abspath(DOT_VAULT)}")
-Exception: Vault variables were not loaded to environ. C:\Users\pc\Desktop\lger\OSINT-Global-Offensive\secrets\.vault

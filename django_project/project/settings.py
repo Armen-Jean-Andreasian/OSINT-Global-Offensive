@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-from django.core.cache import cache
 
 # Base directories  ====================================================================================================
 BASE_DIR = Path(__file__).resolve().parent.parent

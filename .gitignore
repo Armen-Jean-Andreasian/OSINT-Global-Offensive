@@ -11,6 +11,8 @@ __pycache__/
 /init_container/config/.env.dump
 *.pyc
 /TODO
-/secrets/logs/
-/secrets/.vault
-/secrets/.vault_credentials
+/system/secrets/logs/
+/system/secrets/.vault
+/system/config/.vault_credentials
+/system/config/.env
+/system/logs/

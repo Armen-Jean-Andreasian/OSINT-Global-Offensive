@@ -14,17 +14,11 @@ services:
       retries: 2
     networks:
       - app_network
-    depends_on:
-      - init_container
-#    env_file:
-#      - init_container:config/.env.dump
 
   django:
     container_name: djangologger-container-v1
     build:
       context: django_project
-    env_file:
-      - config/.env.dump
     networks:
       - app_network
     depends_on:
@@ -32,6 +26,16 @@ services:
     command: python manage.py runserver 0.0.0.0:8000  # in container
     expose:
       - "8000"  # in docker network
+    environment:
+      - DEBUG=${DEBUG}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CACHE_TTL=${REDIS_CACHE_TTL}
+      - DOMAIN_FOR_FAKE_URL=${DOMAIN_FOR_FAKE_URL}
+    volumes:
+    - static_volume:/django_project/nginx/staticfiles
+
 
   nginx:
     build:
@@ -40,7 +44,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/staticfiles:/nginx/staticfiles
+      - static_volume:/django_project/nginx/staticfiles
     depends_on:
       - django
     networks:
@@ -48,6 +52,7 @@ services:
 
 volumes:
   redis_data:
+  static_volume:
 
 networks:
   app_network:
