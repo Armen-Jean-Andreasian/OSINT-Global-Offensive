@@ -4,5 +4,4 @@
 4. Then run the script `run.sh` in the project root.
 5. `build` and `up` functions for start , and `stop` to turn off compose
 
-
 This way we retrieve secrets to .env file, then run the project with compose.
