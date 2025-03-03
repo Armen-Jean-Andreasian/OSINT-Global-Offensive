@@ -1,0 +1,1 @@
+Everything that's related to interaction with the system (OS), but not containers
