@@ -1,0 +1,43 @@
+{% extends "base_logged_out.html" %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block extra_styles %}
+<!-- JS/CSS -->
+<link rel="stylesheet" href="{% static 'css/login_page.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<h1></h1>
+
+<!-- Display success or error messages -->
+{% if messages %}
+<div id="message-container">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Login Form -->
+<form id="login-form" method="POST" action="{% url 'auth_app:login' %}">
+    {% csrf_token %}
+
+    <!-- Username -->
+    <label for="login">Username</label>
+    <input type="text" id="login" name="login" required><br>
+
+    <!-- Password -->
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <!-- Submit Button -->
+    <button type="submit">Login</button>
+</form>
+{% endblock %}
+

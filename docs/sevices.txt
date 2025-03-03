@@ -1,0 +1,4 @@
+- All services are split into corresponding folders.
+- Each service has a Dockerfile
+- All start-commands are moved to orchestrator
+- Only container-specific commands are left in the container. (temporary)

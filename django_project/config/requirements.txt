@@ -1,0 +1,6 @@
+Django~=5.1.3
+PyJWT>=2.10.1
+PyYAML~=6.0.2
+redis~=5.2.1
+django-redis~=5.4.0
+service-response~=0.1

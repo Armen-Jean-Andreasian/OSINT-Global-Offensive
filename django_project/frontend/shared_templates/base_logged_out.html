@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Video Background{% endblock %}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Remove scrollbars */
+        }
+
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the entire background */
+            z-index: -1; /* Places the video behind all other elements */
+        }
+
+        .content {
+            position: relative;
+            z-index: 1; /* Places content above the video */
+        }
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+
+<!-- Navbar -->
+{% include 'partials/navbar.html' %}
+
+
+<!-- Background Video -->
+<video autoplay loop muted playsinline>
+    <source src="{% static 'files/background.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+
+<!-- Content Placeholder -->
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
