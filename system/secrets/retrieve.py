@@ -1,7 +1,10 @@
 # Pure SOLID. How do you like it?
 import os
-import requests
 from typing import Callable
+from system.utils.custom_web_client import Client, Response
+
+
+Client.init(allow_redirects=True)
 
 
 class Hashicorp:
@@ -37,21 +40,21 @@ class ApiTokenRetriever:
         """ Checks if the API token ready to use. No need to fetch again. """
         return os.environ.get("HASHICORP_API_TOKEN") is not None
 
-    def _request_token_api(self) -> requests.Response:
+    def _request_token_api(self) -> Response:
         """Sends a POST request to obtain an API token."""
         data = self.hashicorp.api_token_payload(client_id=os.environ.get("HCP_CLIENT_ID"),
                                                 client_secret=os.environ.get("HCP_CLIENT_SECRET"))
 
-        return requests.post(
+        return Client.post(
             url=self.hashicorp.api_token_url,
             headers=self.hashicorp.api_token_headers,
             data=data
         )
 
-    def _parse_token_response(self, response: requests.Response) -> str | requests.Response:
+    def _parse_token_response(self, response: Response) -> str | Response:
         """Parses the response, returns the API token if it's good, if not the response."""
         if response.status_code == 200:
-            api_token = response.json().get("access_token")
+            api_token = response.json.get("access_token")
             return api_token
         return response
 
@@ -69,12 +72,12 @@ class ApiTokenRetriever:
 
         self.logger.info("Requesting API token from HashiCorp...")
 
-        response: requests.Response = self._request_token_api()
+        response: Response = self._request_token_api()
 
-        parsed_response: requests.Response | str = self._parse_token_response(response)
+        parsed_response: Response | str = self._parse_token_response(response)
 
-        if isinstance(parsed_response, requests.Response):
-            raise RuntimeError(f"Failed to retrieve API token. Code: {response.status_code}, Response: {response.text}")
+        if isinstance(parsed_response, Response):
+            raise RuntimeError(f"Failed to retrieve API token. Code: {response.status_code}, Response: {response}")
         else:
             self._set_api_token(api_token=parsed_response)
             self.logger.info("API token successfully retrieved and stored in environ.")
@@ -85,15 +88,15 @@ class SecretsRetriever:
         self.logger = logger
         self.hashicorp = Hashicorp
 
-    def _request_secrets(self) -> requests.Response:
+    def _request_secrets(self) -> Response:
         """Sends a GET request to obtain remote secrets."""
         headers = self.hashicorp.secrets_headers(api_token=os.environ.get('HASHICORP_API_TOKEN'))
-        return requests.get(url=os.environ.get("HCP_SECRETS_URL"), headers=headers)
+        return Client.get(url=os.environ.get("HCP_SECRETS_URL"), headers=headers)
 
-    def _parse_response(self, response) -> dict | requests.Response:
+    def _parse_response(self, response) -> dict | Response:
         """Parses the response, returns the secrets in dict if everything's fine, otherwise - the response."""
         if response.status_code == 200:
-            secrets_payload = response.json().get('secrets', [])
+            secrets_payload = response.json.get('secrets', [])
             secrets = {s['name']: s['static_version']['value'] for s in secrets_payload}
             return secrets
         else:
@@ -106,9 +109,9 @@ class SecretsRetriever:
         secrets_response = self._request_secrets()
         parsed_response = self._parse_response(response=secrets_response)
 
-        if isinstance(parsed_response, requests.Response):
+        if isinstance(parsed_response, Response):
             raise RuntimeError(
-                f"Failed to retrieve secrets. Code: {parsed_response.status_code}, Response: {parsed_response.text}")
+                f"Failed to retrieve secrets. Code: {parsed_response.status_code}, Response: {parsed_response.content}")
         else:
             self.logger.info("All secrets were successfully obtained.")
             secrets: dict = parsed_response
