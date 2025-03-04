@@ -43,7 +43,7 @@ function down() {
 }
 
 # Usage
-build
-up
+#build
+#up
 
-# down
+down

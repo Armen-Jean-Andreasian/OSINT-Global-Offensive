@@ -42,13 +42,15 @@ services:
 
 
   nginx:
+    container_name: nginx-container
     build:
       context: ./nginx
-    container_name: nginx-container
-    ports:
-      - "80:80"
+      args:
+        DJANGO_PORT: ${DJANGO_PORT}
     volumes:
       - static_volume:/django_project/nginx/staticfiles
+    ports:
+      - "80:80"
     depends_on:
       - django
     networks:
