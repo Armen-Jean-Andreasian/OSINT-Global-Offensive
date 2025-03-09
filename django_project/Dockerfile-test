@@ -13,14 +13,14 @@ ENV REDIS_CACHE_TTL="TBD"
 ENV DOMAIN_FOR_FAKE_URL="TBD"
 
 
-
-# Layers ===============================================================================================================
+#== Layers =============================================================================================================
 
 WORKDIR /django_project
 
-COPY config/requirements.txt config/requirements.txt
+COPY config/requirements-test.txt config/requirements-test.txt
 
-RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements.txt
+# Installing dependencies based on environment
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements-test.txt
 
 COPY . .
 COPY manage.py .

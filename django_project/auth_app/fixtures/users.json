@@ -1,0 +1,11 @@
+[
+  {
+    "model": "auth.User",
+    "pk": 1,
+    "fields": {
+      "username": "testuser",
+      "email": "test@example.com",
+      "is_active": true
+    }
+  }
+]
