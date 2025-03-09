@@ -1,11 +1,14 @@
 #!/bin/bash
 
+### Usage
+# sh infra.sh up
+# sh infra.sh down
+
+
 # Constants
 PROJECT_NAME="logger_proj"
 ENV_FILE="system/config/.env"
 COMPOSE_YAML_FILE="docker-compose.yml"
-
-
 
 # Fetches remote secrets from HashiCorp and saves to .env file
 function prepare_system() {
@@ -21,10 +24,7 @@ prepare_system(
   echo "Secrets are retrieved to .env"
 }
 
-# Implementations
-
 # Docker compose build --no-cache
-# Using separate functions, bc we need to define COMPOSE_PROJECT_NAME
 function build() {
   prepare_system
   sleep 5
@@ -32,18 +32,34 @@ function build() {
   COMPOSE_PROJECT_NAME=${PROJECT_NAME} docker compose --env-file ${ENV_FILE} -f ${COMPOSE_YAML_FILE} build --no-cache
 }
 
-# Only starts the containers using the latest built images.
+# Starts the containers using the latest built images. Rebuilds only the outdated/modified ones and removes orphaned containers.
 function up() {
   COMPOSE_PROJECT_NAME=${PROJECT_NAME} docker compose --env-file ${ENV_FILE} -f ${COMPOSE_YAML_FILE} up --remove-orphans
 }
 
+# Stops and removes all running containers, networks, and volumes associated with the infrastructure.
 function down() {
   echo "Stopping and removing Docker containers..."
   COMPOSE_PROJECT_NAME=${PROJECT_NAME} docker compose --env-file ${ENV_FILE} -f ${COMPOSE_YAML_FILE} down
 }
 
-# Usage
-#build
-#up
+# Run the infrastructure (build + up)
+function run() {
+  build
+  up
+}
 
-down
+# Stop the infrastructure
+function stop() {
+  down
+}
+
+# Main script logic
+if [[ "$1" == "run" ]]; then
+  run
+elif [[ "$1" == "stop" ]]; then
+  stop
+else
+  echo "Usage: $0 {run|stop}"
+  exit 1
+fi

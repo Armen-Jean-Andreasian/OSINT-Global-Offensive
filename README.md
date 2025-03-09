@@ -9,6 +9,28 @@
 </p>
 
 
+---
+# Usage
+
+
+**Start infrastructure**: Starts the containers using the latest built images. Rebuilds only the outdated/modified ones and removes orphaned containers.
+
+
+```bash
+sh infra/infra.sh run
+```
+
+**Stop infrastructure**: Stops and removes all running containers, networks, and volumes associated with the infrastructure.
+
+```bash
+sh infra/infra.sh stop
+```
+
+
+**Additionally**, for users who prefer convenience (like running scripts directly from an IDE by right-clicking), there are `quick_run.sh` and `quick_stop.sh`.  
+
+
+---
 #### [20.12.2024]
 New update of the project.
 

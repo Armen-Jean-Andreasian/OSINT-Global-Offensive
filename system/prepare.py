@@ -1,6 +1,17 @@
+import os.path
+
 from .secrets import ApiTokenRetriever, SecretsRetriever, SecretsKeeper
 from .utils.custom_dotenv import load_dotenv
 from .utils.custom_logger import Logger
+
+
+def load_from_file(env_path):
+    if os.path.exists(env_path):
+        print(f".env file found, loading from it: {env_path}")
+        load_dotenv(env_path)
+        return True
+    else:
+        return False
 
 
 def prepare_system(
@@ -10,6 +21,10 @@ def prepare_system(
 
 ):
     secrets_logger = Logger(module_name="secrets", log_output_dir=log_output_dir)
+
+    if load_from_file(env_path=dot_env_path):
+        secrets_logger.clear_logs()
+        exit(1)
 
     try:
         load_dotenv(dot_vault_path)
