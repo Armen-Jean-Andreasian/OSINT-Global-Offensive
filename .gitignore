@@ -16,3 +16,5 @@ __pycache__/
 /system/config/.vault_credentials
 /system/config/.env
 /system/logs/
+/main.py
+/directory_structure.txt
