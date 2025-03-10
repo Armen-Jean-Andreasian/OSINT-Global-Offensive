@@ -1,4 +1,4 @@
--r .config/requirements.txt
+-r requirements.txt
 
 pytest
 pytest-django

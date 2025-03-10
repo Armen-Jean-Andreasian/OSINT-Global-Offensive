@@ -1,5 +1,7 @@
 FROM python:3.11-slim
 
+RUN echo "Building from django_project/Dockerfile"
+
 #== Enviroment variables ===============================================================================================
 
 ENV PYTHONDONTWRITEBYTECODE=1

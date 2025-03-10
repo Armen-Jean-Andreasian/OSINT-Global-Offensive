@@ -1,5 +1,7 @@
 FROM python:3.11-slim
 
+RUN echo "Building from django_project/Dockerfile-test"
+
 #== Enviroment variables ===============================================================================================
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -17,9 +19,10 @@ ENV DOMAIN_FOR_FAKE_URL="TBD"
 
 WORKDIR /django_project
 
+# copying requirements.txt because requirements-test.txt extends it
+COPY config/requirements.txt config/requirements.txt
 COPY config/requirements-test.txt config/requirements-test.txt
 
-# Installing dependencies based on environment
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements-test.txt
 
 COPY . .
