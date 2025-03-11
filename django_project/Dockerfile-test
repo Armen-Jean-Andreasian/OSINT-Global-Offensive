@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 RUN echo "Building from django_project/Dockerfile-test"
 
-#== Enviroment variables ===============================================================================================
+#== Environment variables ===============================================================================================
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -14,19 +14,17 @@ ENV REDIS_PASSWORD="TBD"
 ENV REDIS_CACHE_TTL="TBD"
 ENV DOMAIN_FOR_FAKE_URL="TBD"
 
+#== Debugging ==========================================================================================================
+ARG DOCKER_DEBUG=true
 
 #== Layers =============================================================================================================
 
-WORKDIR /django_project
+WORKDIR /container_root
 
-# copying requirements.txt because requirements-test.txt extends it
-COPY config/requirements.txt config/requirements.txt
-COPY config/requirements-test.txt config/requirements-test.txt
+RUN if [ "$DOCKER_DEBUG" = "true" ]; then ls -lah && pwd; fi
 
-RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements-test.txt
+COPY django_project/ .
 
-COPY . .
-COPY manage.py .
+RUN if [ "$DOCKER_DEBUG" = "true" ]; then ls -lah && pwd; fi
 
-# Generate static
-RUN python manage.py collectstatic --noinput
+RUN pip install -r config/requirements-test.txt

@@ -9,11 +9,24 @@ services:
     depends_on:
       redis-test:
         condition: service_healthy
-    command: ["pytest", "--rootdir=/django_project"]
+    command: >
+      sh -c "
+      python manage.py makemigrations --check &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      sleep 2 &&
+      python manage.py runserver 0.0.0.0:8000 &&
+      sleep 10 &&
+      pytest"
+    expose:
+      - "8000"
     environment:
-      - REDIS_HOST=redis-test
+      - DEBUG=${DEBUG}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - REDIS_PORT=${REDIS_PORT}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_CACHE_TTL=${REDIS_CACHE_TTL}
+      - DOMAIN_FOR_FAKE_URL=${DOMAIN_FOR_FAKE_URL}
     networks:
       - app_network
 

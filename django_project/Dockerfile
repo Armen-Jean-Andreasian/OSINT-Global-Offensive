@@ -25,7 +25,11 @@ COPY config/requirements.txt config/requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r config/requirements.txt
 
 COPY . .
-COPY manage.py .
+# experimenting
+#COPY manage.py .
+
+# Deleting tests
+RUN --rm-rf ./tests/
 
 # Generate static
 RUN python manage.py collectstatic --noinput

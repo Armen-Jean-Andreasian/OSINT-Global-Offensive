@@ -1,5 +1,6 @@
 venv/
 django_project/venv/
+django_project/.idea/
 .idea/
 .git/
 __pycache__/

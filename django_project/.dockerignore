@@ -1,5 +1,5 @@
 # Git and version control
-.git
+.git/
 .gitignore
 
 # IDE and editor settings
@@ -30,9 +30,4 @@ logs/
 *.pid
 *.seed
 nohup.out
-
-# Tests
-tests/
-test_*.py
-*.test.py
 
