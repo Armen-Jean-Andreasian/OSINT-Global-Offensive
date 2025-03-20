@@ -1,12 +1,16 @@
 # OSINT-Global-Offensive
 
-## Project Overview
+## Introduction
 
-### Introduction
-OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework designed to streamline and automate the process of gathering, analyzing, and processing publicly available information. Built for cybersecurity professionals, ethical hackers, and investigative researchers, this project leverages various data sources to provide actionable intelligence.
+OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework designed to streamline and automate the
+process of gathering, analyzing, and processing publicly available information. Built for cybersecurity professionals,
+ethical hackers, and investigative researchers, this project leverages various data sources to provide actionable
+intelligence.
 
-### Key Features
-- **Automated Data Collection** – Extract and process data from multiple sources, including social media, websites, and public databases.
+## Key Features
+
+- **Automated Data Collection** – Extract and process data from multiple sources, including social media, websites, and
+  public databases.
 - **Modular Architecture** – Easily extend functionality with new data sources and processing modules.
 - **Efficient Search & Filtering** – Query and filter results to extract relevant insights.
 - **Data Normalization** – Standardizes extracted data for better analysis and correlation.
@@ -15,14 +19,16 @@ OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework
 - **Enhanced Security** – Leverages HashiCorp Vault for secure storage of secrets and credentials.
 - **Custom Git Modules** – Implements `not_gitmodules` to manage dependencies more effectively.
 
-### Use Cases
+## Use Cases
+
 - **Cybersecurity Investigations** – Identify threats, track malicious actors, and uncover security vulnerabilities.
 - **Threat Intelligence** – Monitor potential risks and analyze digital footprints.
 - **Law Enforcement & Forensics** – Support investigations by uncovering publicly available evidence.
 - **Journalistic Research** – Gather and verify information for investigative journalism.
 - **Competitive Intelligence** – Analyze market trends and monitor competitors.
 
-### Technologies Used
+## Technologies Used
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/python.png" alt="Python" width="48" height="48" />
 <img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/go.png" alt="GO" width="48" height="48" />
@@ -58,45 +64,23 @@ OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework
 <img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/docker_compose.png" alt="docker" height="48" />
 </p>
 
-
-
-
-- **Python** – Core programming language for automation and data processing.
-- **GoLang** – Used for high-performance components.
-- **Bash** – Shell scripting for automation and system tasks.
-- **HTML/CSS/JavaScript** – For front-end rendering and user interaction.
-
-
-- **Django** – Provides a robust backend framework.
-- **FastAPI** – Included in some microservices to provides high-performance.
-
-
-- **RabbitMQ** – Handles asynchronous task processing
-- **Redis** – Handles caching, also is used as a secondary message broker.
-- **Nginx** – Reverse proxy and load balancing.
-
-
-- **Kafka** – Facilitates real-time data streaming.
-- **Logstash** – Enables data collection, transformation, and forwarding.
-- **Elasticsearch** – Provides full-text search and analytics capabilities.
-- **Grafana** – Visualizes and monitors metrics for system performance.
-- **PostgreSQL (previously SQLite3)** – Manages structured data storage.
-
-
-- **HashiCorp Vault** – Utilized for secure secrets management.
-- **Not Git Modules** – Blazingly fast **original** interpretation of Git submodules for dependency management.
-- **Docker** – Ensures consistent deployment and environment management.
-- **Docker Compose** – Orchestrates multi-container applications.
-
-
-### Architectural Principles
-- **Lightweight and Optimized** – Adheres to `LOB` and `YAGNI` principles, avoiding unnecessary complexity.
-- **Service-Oriented Design** – CRUD operations are handled at the model level, reducing reliance on controllers.
-- **Controllerless Flow** – Views handle data presentation, while models manage CRUD operations.
-- **Custom Logging System** – Implements a structured logging mechanism for audit trails and debugging.
-
----
-You can include your documentation files in the **OSINT-Global-Offensive** README by adding a **Documentation** section with links to each `.md` file. Here's how you can structure it:
+- **Python** – Handles automation and backend logic.
+- **GoLang** – Used for high-performance tasks.
+- **Bash** – Automates system and deployment tasks.
+- **HTML/CSS/JavaScript** – Manages front-end rendering when needed.
+- **Django** – Provides a structured backend framework.
+- **FastAPI** – Powers high-performance microservices.
+- **RabbitMQ** – Manages async task processing.
+- **Redis** – Speeds up caching and message brokering.
+- **Nginx** – Acts as a reverse proxy and load balancer.
+- **Kafka** – Streams real-time data.
+- **Logstash** – Collects and processes logs.
+- **Elasticsearch** – Enables search and real-time analytics.
+- **Grafana** – Monitors system performance.
+- **PostgreSQL (previously SQLite3)** – Stores structured data.
+- **HashiCorp Vault** – Secures secrets.
+- **Not Git Modules** – Custom fast dependency management.
+- **Docker** – Ensures consistent environments.
 
 ---
 
@@ -108,7 +92,40 @@ For detailed information on specific aspects of the project, refer to the follow
 - [**Caching**](docs/caching.md) – Explanation of caching strategies used to optimize performance.
 - [**Logging**](docs/logging.md) – Details on the logging system and how logs are structured.
 - [**Secrets Management**](docs/secrets_managment) – How secrets and credentials are securely managed.
-- [**Service Separation**](docs/service_separation.md) – Guidelines on how different services interact and maintain independence.
+- [**Service Separation**](docs/service_separation.md) – Guidelines on how different services interact and maintain
+  independence.
 - [**Usage**](docs/usage.md) – Instructions on how to set up, configure, and use the framework.
 
 ---
+
+## Demo
+
+![home.png](docs/media/home.png)
+
+![screen1.png](docs/media/screen1.png)
+
+![screen2.png](docs/media/screen2.png)
+
+
+---
+
+## License
+
+See the [LICENSE](LICENSE.md) file for details.
+
+---
+## Acknowledgements
+
+This license and any disputes arising from it shall be governed by and construed in accordance with the laws of the county. Any legal actions related to this project must be brought in the courts of the county, unless otherwise required by applicable law.
+
+---
+## Disclaimer
+
+This project is provided "as is," without any warranties or guarantees of any kind. The author is not responsible for any damages, data loss, legal issues, or other consequences resulting from the use, misuse, or modification of this project. By using this project, you acknowledge that you do so at your own risk.
+
+---
+## Author
+
+- **Armen-Jean Andreasian**
+- **2024 Dec 21**.
+
