@@ -1,12 +1,108 @@
-# Stack
+# OSINT-Global-Offensive
+
+## Project Overview
+
+### Introduction
+OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework designed to streamline and automate the process of gathering, analyzing, and processing publicly available information. Built for cybersecurity professionals, ethical hackers, and investigative researchers, this project leverages various data sources to provide actionable intelligence.
+
+### Key Features
+- **Automated Data Collection** – Extract and process data from multiple sources, including social media, websites, and public databases.
+- **Modular Architecture** – Easily extend functionality with new data sources and processing modules.
+- **Efficient Search & Filtering** – Query and filter results to extract relevant insights.
+- **Data Normalization** – Standardizes extracted data for better analysis and correlation.
+- **Extensive API Support** – Integrates with third-party services and APIs for enriched intelligence gathering.
+- **Scalability** – Built with Docker to ensure easy deployment and scalability.
+- **Enhanced Security** – Leverages HashiCorp Vault for secure storage of secrets and credentials.
+- **Custom Git Modules** – Implements `not_gitmodules` to manage dependencies more effectively.
+
+### Use Cases
+- **Cybersecurity Investigations** – Identify threats, track malicious actors, and uncover security vulnerabilities.
+- **Threat Intelligence** – Monitor potential risks and analyze digital footprints.
+- **Law Enforcement & Forensics** – Support investigations by uncovering publicly available evidence.
+- **Journalistic Research** – Gather and verify information for investigative journalism.
+- **Competitive Intelligence** – Analyze market trends and monitor competitors.
+
+### Technologies Used
 <p align="center">
-<img src="https://e7.pngegg.com/pngimages/10/113/png-clipart-django-web-development-web-framework-python-software-framework-django-text-trademark-thumbnail.png" alt="Python" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFRo0Y8B-K-skRKINQNGB_LQz029Cf9VEcsw&s" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Jxyptf2jPCbEozdlBsQhJBzws8ek2CoeZg&s" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-4q2h8RjVBQY75dIRbZI3A4V3G_UGGVutUB72egCcWuKt2VZA2MvSsb5CgLT9l5fXELg&usqp=CAU" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsbQP2DoSO32lDEtfRfMDsrpAhn-qUxh-9YMvFqDuYuH5NgkfrBlj1l3mjDGca0z4z7Fg&usqp=CAU" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLXdPtfBobUsKl5vwAxC34rwz9EsqOF2Tj9w&s" alt="" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/python.png" alt="Python" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/go.png" alt="GO" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/bash.png" alt="bash" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/js.png" alt="JS" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/html.png" alt="HTML" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/css.png" alt="CSS" height="48" />
 </p>
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/django.png" alt="Django" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/fastapi.png" alt="fastapi" height="48" />
+</p>
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/rmq.png" alt="rmq" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/redis.png" alt="redis" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/nginx.png" alt="nginx" width="48" height="48" />
+
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/kafka.png" alt="kafka" width="50" height="50" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/logstash.svg" alt="logstash" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/elasticsearch.png" alt="elasticsearch" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/grafana.png" alt="grafana" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/postgresql.png" alt="postgresql" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/sqlite.png" alt="sqlite" width="48" height="48" />
+</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/hashicorp.png" alt="hashicorp" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/docker.png" alt="docker" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/docker_compose.png" alt="docker" height="48" />
+</p>
+
+
+
+
+
+- **Python** – Core programming language for automation and data processing.
+- **GoLang** – Used for high-performance components.
+- **Bash** – Shell scripting for automation and system tasks.
+- **HTML/CSS/JavaScript** – For front-end rendering and user interaction.
+
+
+- **Django** – Provides a robust backend framework.
+- **FastAPI** – Included in some microservices to provides high-performance.
+
+
+- **RabbitMQ** – Handles asynchronous task processing
+- **Redis** – Handles caching, also is used as a secondary message broker.
+- **Nginx** – Reverse proxy and load balancing.
+
+
+- **Kafka** – Facilitates real-time data streaming.
+- **Logstash** – Enables data collection, transformation, and forwarding.
+- **Elasticsearch** – Provides full-text search and analytics capabilities.
+- **Grafana** – Visualizes and monitors metrics for system performance.
+- **PostgreSQL (previously SQLite3)** – Manages structured data storage.
+
+
+- **HashiCorp Vault** – Utilized for secure secrets management.
+- **Not Git Modules** – Blazingly fast **original** interpretation of Git submodules for dependency management.
+- **Docker** – Ensures consistent deployment and environment management.
+- **Docker Compose** – Orchestrates multi-container applications.
+
+
+### Architectural Principles
+- **Lightweight and Optimized** – Adheres to `LOB` and `YAGNI` principles, avoiding unnecessary complexity.
+- **Service-Oriented Design** – CRUD operations are handled at the model level, reducing reliance on controllers.
+- **Controllerless Flow** – Views handle data presentation, while models manage CRUD operations.
+- **Custom Logging System** – Implements a structured logging mechanism for audit trails and debugging.
+
+### Why This Project?
+In a world where information is power, OSINT-Global-Offensive provides the tools needed to harness publicly available data effectively. The framework is built with security, flexibility, and usability in mind, ensuring that professionals can focus on intelligence analysis rather than tedious data collection.
+
+---
+This overview serves as a high-level introduction to the project. Further sections will dive into installation, usage, and contribution guidelines.
+
+
 
 
 ---
@@ -74,15 +170,7 @@ The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZ
 # Secrets, encryption, etc
 
 - All project-level secrets are kept in HashiCorpLoader Vault
-- In `.env` are kept HashiCorpLoader-related secrets
-- The `.env` file is encrypted.
-  - By default it's the `master-key` that you'll be asked to enter
-  - Optionally you can encrypt using a random generated salt, which will be saved as a file called `salt`, which is also supported.
 
-So the order is:
-1. Decrypt the `.env` file
-2. Retrieve Hashicorp data outta it
-3. Request Hashicorp and obtain Django secrets.
 
 # Principle
 
