@@ -1,126 +1,131 @@
-# Stack
+# OSINT-Global-Offensive
+
+## Introduction
+
+OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework designed to streamline and automate the
+process of gathering, analyzing, and processing publicly available information. Built for cybersecurity professionals,
+ethical hackers, and investigative researchers, this project leverages various data sources to provide actionable
+intelligence.
+
+## Key Features
+
+- **Automated Data Collection** – Extract and process data from multiple sources, including social media, websites, and
+  public databases.
+- **Modular Architecture** – Easily extend functionality with new data sources and processing modules.
+- **Efficient Search & Filtering** – Query and filter results to extract relevant insights.
+- **Data Normalization** – Standardizes extracted data for better analysis and correlation.
+- **Extensive API Support** – Integrates with third-party services and APIs for enriched intelligence gathering.
+- **Scalability** – Built with Docker to ensure easy deployment and scalability.
+- **Enhanced Security** – Leverages HashiCorp Vault for secure storage of secrets and credentials.
+- **Custom Git Modules** – Implements `not_gitmodules` to manage dependencies more effectively.
+
+## Use Cases
+
+- **Cybersecurity Investigations** – Identify threats, track malicious actors, and uncover security vulnerabilities.
+- **Threat Intelligence** – Monitor potential risks and analyze digital footprints.
+- **Law Enforcement & Forensics** – Support investigations by uncovering publicly available evidence.
+- **Journalistic Research** – Gather and verify information for investigative journalism.
+- **Competitive Intelligence** – Analyze market trends and monitor competitors.
+
+## Technologies Used
+
 <p align="center">
-<img src="https://e7.pngegg.com/pngimages/10/113/png-clipart-django-web-development-web-framework-python-software-framework-django-text-trademark-thumbnail.png" alt="Python" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFRo0Y8B-K-skRKINQNGB_LQz029Cf9VEcsw&s" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Jxyptf2jPCbEozdlBsQhJBzws8ek2CoeZg&s" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-4q2h8RjVBQY75dIRbZI3A4V3G_UGGVutUB72egCcWuKt2VZA2MvSsb5CgLT9l5fXELg&usqp=CAU" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsbQP2DoSO32lDEtfRfMDsrpAhn-qUxh-9YMvFqDuYuH5NgkfrBlj1l3mjDGca0z4z7Fg&usqp=CAU" alt="Go" width="48" height="48" />
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLXdPtfBobUsKl5vwAxC34rwz9EsqOF2Tj9w&s" alt="" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/python.png" alt="Python" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/go.png" alt="GO" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/bash.png" alt="bash" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/js.png" alt="JS" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/html.png" alt="HTML" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/css.png" alt="CSS" height="48" />
 </p>
 
 
----
-# Usage
+<p align="center">
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/django.png" alt="Django" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/fastapi.png" alt="fastapi" height="48" />
+</p>
 
 
-**Start infrastructure**: Starts the containers using the latest built images. Rebuilds only the outdated/modified ones and removes orphaned containers.
+<p align="center">
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/rmq.png" alt="rmq" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/redis.png" alt="redis" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/nginx.png" alt="nginx" width="48" height="48" />
 
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/kafka.png" alt="kafka" width="50" height="50" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/logstash.svg" alt="logstash" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/elasticsearch.png" alt="elasticsearch" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/grafana.png" alt="grafana" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/postgresql.png" alt="postgresql" width="48" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/sqlite.png" alt="sqlite" width="48" height="48" />
+</p>
 
-```bash
-sh infra/infra.sh run
-```
+<p align="center">
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/hashicorp.png" alt="hashicorp" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/docker.png" alt="docker" height="48" />
+<img src="https://raw.githubusercontent.com/dev-tools-utils/logos/refs/heads/master/docker_compose.png" alt="docker" height="48" />
+</p>
 
-**Stop infrastructure**: Stops and removes all running containers, networks, and volumes associated with the infrastructure.
-
-```bash
-sh infra/infra.sh stop
-```
-
-
-**Additionally**, for users who prefer convenience (like running scripts directly from an IDE by right-clicking), there are `quick_run.sh` and `quick_stop.sh`.  
-
-
----
-#### [20.12.2024]
-New update of the project.
-
-- SQLite3 (PostgreSQL)
-- Redis
-- Docker
-- Nginx
-- `not_gitmodules` (original implementation of git modules)
-- HashiCorp Vault
-- HTML/CSS/JavaScript
-
-Since now all CRUD methods will be moved to Models.
-- create (all params needed) => create one based on params
-- index (may have params) => show all based on params 
-- show (has at least one param) => show one based on params
-- update (at least id, new_content) => update one based on params
-- destroy (at least id) => delete one based on params
-
-Additionally, some other methods:
-- clone (at least id) => clones the object into a new one with different id
-
-
-No more Controllers. Views will be responsible for handling the data and passing it to Models. Models will be responsible for CRUD operations. Views will be responsible for rendering the data.
-
----
-# Logger Django App
-
-The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZkTCkDyJxTl87X1wKRheW/view?usp=sharing)
-
-
-# Stack
-- Django
-- SQLite3 (PostgreSQL)
-- Redis
-- Docker
-- `not_gitmodules` (original implementation of git modules)
-- HashiCorp Vault
-- HTML/CSS/JavaScript
-
-
-# Secrets, encryption, etc
-
-- All project-level secrets are kept in HashiCorpLoader Vault
-- In `.env` are kept HashiCorpLoader-related secrets
-- The `.env` file is encrypted.
-  - By default it's the `master-key` that you'll be asked to enter
-  - Optionally you can encrypt using a random generated salt, which will be saved as a file called `salt`, which is also supported.
-
-So the order is:
-1. Decrypt the `.env` file
-2. Retrieve Hashicorp data outta it
-3. Request Hashicorp and obtain Django secrets.
-
-# Principle
-
-- The project strongly maintains `LOB` principle combined with `YAGNI`. 
-- Also, this project violates the PEP on line length with beautiful one-line solutions 
-- It may hurt your solid feelings of an over-engineered amateur developer. 
-
-
-# Segregation
-
-## These are made to not make the project a mess of functions separated by files.
-
-View: **(Presentation Layer)**
-- Views are represented as View based classes, so they contain REST methods: `get`, `post`, `put`, `patch`, `delete`
-- Each view has only one path it handles.
-- Ideally views shouldn't contain business logic and they should return `Controller.call` or files (HTML). However, the scenarios can be complex, and to not summon new layers such as `Transaction`, `Contract`, or `BusinessLogic`, depending on the goal.
-- One path may include multiple subpaths, each of them should have their own View based class. `/path` has `PathView` and `/path/data/<id>` has its own `DataView`.
-- Views obtain data and pass to templates.
-- To handle `get` maybe `dispatch` will be used.
-
-  
-Controller: **(Business Logic Layer)**
-- Controllers are custom classes, which contain limited CRUD methods: `index`, `show`, `update`, `destroy`. 
-- Controllers provide interface to work solely with their own models.
-- Controllers answer using `ServiceResponse` custom data structure.
-
-Full flow. view receives data and transfers to controller, it does the job, returns ServiceResponse to View which according to ServiceResponse's status decided what to render/redirect.
+- **Python** – Handles automation and backend logic.
+- **GoLang** – Used for high-performance tasks.
+- **Bash** – Automates system and deployment tasks.
+- **HTML/CSS/JavaScript** – Manages front-end rendering when needed.
+- **Django** – Provides a structured backend framework.
+- **FastAPI** – Powers high-performance microservices.
+- **RabbitMQ** – Manages async task processing.
+- **Redis** – Speeds up caching and message brokering.
+- **Nginx** – Acts as a reverse proxy and load balancer.
+- **Kafka** – Streams real-time data.
+- **Logstash** – Collects and processes logs.
+- **Elasticsearch** – Enables search and real-time analytics.
+- **Grafana** – Monitors system performance.
+- **PostgreSQL (previously SQLite3)** – Stores structured data.
+- **HashiCorp Vault** – Secures secrets.
+- **Not Git Modules** – Custom fast dependency management.
+- **Docker** – Ensures consistent environments.
 
 ---
 
-# Stats of 7.01.2025
+## Documentation
 
-- Date of start: Nov 26, 2024
-- Lines of code: 26162
-- Languages: 
-    - Python 42.8%
-    - JavaScript 37.9%
-    - HTML 9.8%
-    - CSS 5.7%
-    - Shell 3.2%
-    - Dockerfile 0.6%
+For detailed information on specific aspects of the project, refer to the following documentation:
+
+- [**Architecture**](docs/architecture.md) – Overview of the system's architecture and design principles.
+- [**Caching**](docs/caching.md) – Explanation of caching strategies used to optimize performance.
+- [**Logging**](docs/logging.md) – Details on the logging system and how logs are structured.
+- [**Secrets Management**](docs/secrets_managment) – How secrets and credentials are securely managed.
+- [**Service Separation**](docs/service_separation.md) – Guidelines on how different services interact and maintain
+  independence.
+- [**Usage**](docs/usage.md) – Instructions on how to set up, configure, and use the framework.
+
+---
+
+## Demo
+
+![home.png](docs/media/home.png)
+
+![screen1.png](docs/media/screen1.png)
+
+![screen2.png](docs/media/screen2.png)
+
+
+---
+
+## License
+
+See the [LICENSE](LICENSE.md) file for details.
+
+---
+## Acknowledgements
+
+This license and any disputes arising from it shall be governed by and construed in accordance with the laws of the county. Any legal actions related to this project must be brought in the courts of the county, unless otherwise required by applicable law.
+
+---
+## Disclaimer
+
+This project is provided "as is," without any warranties or guarantees of any kind. The author is not responsible for any damages, data loss, legal issues, or other consequences resulting from the use, misuse, or modification of this project. By using this project, you acknowledge that you do so at your own risk.
+
+---
+## Author
+
+- **Armen-Jean Andreasian**
+- **2024 Dec 21**.
+
