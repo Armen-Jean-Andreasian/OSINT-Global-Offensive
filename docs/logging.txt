@@ -1,7 +1,0 @@
-# Logging for Django
-
-- built-in Logging
-
-# The flow of logs
-
-log -> Kafka -> Logstash -> ElasticSearch -> Grafana
