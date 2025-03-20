@@ -1,7 +1,3 @@
-Yes, it's a good idea to explicitly include your name in the disclaimer and ownership clauses for clarity. Here's the revised version:
-
----
-
 ## Project License
 
 1. **Usage**: You may use this project for commercial, personal, educational, or non-commercial purposes.
