@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-
+import sys
 # Base directories  ====================================================================================================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -58,6 +58,24 @@ ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database settings ===================================================================================================
+
+# For testing db for PostgresSQL. Uncomment once switch to PostgresSQL. For Sqlite Django automatically creates.
+#
+# if "test" in sys.argv:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": "test_db",
+#             "USER": "postgres",
+#             "PASSWORD": "postgres",
+#             "HOST": "db",
+#             "PORT": "5432",
+#         }
+#     }
+
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -110,6 +128,11 @@ CACHES = {
         },
     },
 }
+
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+
 
 # Nginx static files folder ============================================================================================
 STATIC_ROOT = os.path.join(BASE_DIR, 'nginx', 'staticfiles')  # Collected statics via `python manage.py collectstatic`

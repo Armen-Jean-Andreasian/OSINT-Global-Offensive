@@ -1,0 +1,30 @@
+FROM python:3.11-slim
+
+RUN echo "Building from django_project/Dockerfile-test"
+
+#== Environment variables ===============================================================================================
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+ENV DEBUG="TBD"
+ENV DJANGO_SECRET_KEY="TBD"
+ENV REDIS_PORT="TBD"
+ENV REDIS_PASSWORD="TBD"
+ENV REDIS_CACHE_TTL="TBD"
+ENV DOMAIN_FOR_FAKE_URL="TBD"
+
+#== Debugging ==========================================================================================================
+ARG DOCKER_DEBUG=true
+
+#== Layers =============================================================================================================
+
+WORKDIR /container_root
+
+RUN if [ "$DOCKER_DEBUG" = "true" ]; then ls -lah && pwd; fi
+
+COPY django_project/ .
+
+RUN if [ "$DOCKER_DEBUG" = "true" ]; then ls -lah && pwd; fi
+
+RUN pip install -r config/requirements-test.txt
