@@ -61,7 +61,6 @@ OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework
 
 
 
-
 - **Python** – Core programming language for automation and data processing.
 - **GoLang** – Used for high-performance components.
 - **Bash** – Shell scripting for automation and system tasks.
@@ -96,119 +95,20 @@ OSINT-Global-Offensive is an advanced open-source intelligence (OSINT) framework
 - **Controllerless Flow** – Views handle data presentation, while models manage CRUD operations.
 - **Custom Logging System** – Implements a structured logging mechanism for audit trails and debugging.
 
-### Why This Project?
-In a world where information is power, OSINT-Global-Offensive provides the tools needed to harness publicly available data effectively. The framework is built with security, flexibility, and usability in mind, ensuring that professionals can focus on intelligence analysis rather than tedious data collection.
-
 ---
-This overview serves as a high-level introduction to the project. Further sections will dive into installation, usage, and contribution guidelines.
-
-
-
-
----
-# Usage
-
-
-**Start infrastructure**: Starts the containers using the latest built images. Rebuilds only the outdated/modified ones and removes orphaned containers.
-
-
-```bash
-sh infra/infra.sh run
-```
-
-**Stop infrastructure**: Stops and removes all running containers, networks, and volumes associated with the infrastructure.
-
-```bash
-sh infra/infra.sh stop
-```
-
-
-**Additionally**, for users who prefer convenience (like running scripts directly from an IDE by right-clicking), there are `quick_run.sh` and `quick_stop.sh`.  
-
-
----
-#### [20.12.2024]
-New update of the project.
-
-- SQLite3 (PostgreSQL)
-- Redis
-- Docker
-- Nginx
-- `not_gitmodules` (original implementation of git modules)
-- HashiCorp Vault
-- HTML/CSS/JavaScript
-
-Since now all CRUD methods will be moved to Models.
-- create (all params needed) => create one based on params
-- index (may have params) => show all based on params 
-- show (has at least one param) => show one based on params
-- update (at least id, new_content) => update one based on params
-- destroy (at least id) => delete one based on params
-
-Additionally, some other methods:
-- clone (at least id) => clones the object into a new one with different id
-
-
-No more Controllers. Views will be responsible for handling the data and passing it to Models. Models will be responsible for CRUD operations. Views will be responsible for rendering the data.
-
----
-# Logger Django App
-
-The diagram of app: [Google Drive](https://drive.google.com/file/d/1aD0W2nmfU3mZkTCkDyJxTl87X1wKRheW/view?usp=sharing)
-
-
-# Stack
-- Django
-- SQLite3 (PostgreSQL)
-- Redis
-- Docker
-- `not_gitmodules` (original implementation of git modules)
-- HashiCorp Vault
-- HTML/CSS/JavaScript
-
-
-# Secrets, encryption, etc
-
-- All project-level secrets are kept in HashiCorpLoader Vault
-
-
-# Principle
-
-- The project strongly maintains `LOB` principle combined with `YAGNI`. 
-- Also, this project violates the PEP on line length with beautiful one-line solutions 
-- It may hurt your solid feelings of an over-engineered amateur developer. 
-
-
-# Segregation
-
-## These are made to not make the project a mess of functions separated by files.
-
-View: **(Presentation Layer)**
-- Views are represented as View based classes, so they contain REST methods: `get`, `post`, `put`, `patch`, `delete`
-- Each view has only one path it handles.
-- Ideally views shouldn't contain business logic and they should return `Controller.call` or files (HTML). However, the scenarios can be complex, and to not summon new layers such as `Transaction`, `Contract`, or `BusinessLogic`, depending on the goal.
-- One path may include multiple subpaths, each of them should have their own View based class. `/path` has `PathView` and `/path/data/<id>` has its own `DataView`.
-- Views obtain data and pass to templates.
-- To handle `get` maybe `dispatch` will be used.
-
-  
-Controller: **(Business Logic Layer)**
-- Controllers are custom classes, which contain limited CRUD methods: `index`, `show`, `update`, `destroy`. 
-- Controllers provide interface to work solely with their own models.
-- Controllers answer using `ServiceResponse` custom data structure.
-
-Full flow. view receives data and transfers to controller, it does the job, returns ServiceResponse to View which according to ServiceResponse's status decided what to render/redirect.
+You can include your documentation files in the **OSINT-Global-Offensive** README by adding a **Documentation** section with links to each `.md` file. Here's how you can structure it:
 
 ---
 
-# Stats of 7.01.2025
+## Documentation
 
-- Date of start: Nov 26, 2024
-- Lines of code: 26162
-- Languages: 
-    - Python 42.8%
-    - JavaScript 37.9%
-    - HTML 9.8%
-    - CSS 5.7%
-    - Shell 3.2%
-    - Dockerfile 0.6%
+For detailed information on specific aspects of the project, refer to the following documentation:
+
+- [**Architecture**](docs/architecture.md) – Overview of the system's architecture and design principles.
+- [**Caching**](docs/caching.md) – Explanation of caching strategies used to optimize performance.
+- [**Logging**](docs/logging.md) – Details on the logging system and how logs are structured.
+- [**Secrets Management**](docs/secrets_managment) – How secrets and credentials are securely managed.
+- [**Service Separation**](docs/service_separation.md) – Guidelines on how different services interact and maintain independence.
+- [**Usage**](docs/usage.md) – Instructions on how to set up, configure, and use the framework.
+
+---
